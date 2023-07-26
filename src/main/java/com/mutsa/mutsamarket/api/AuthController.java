@@ -30,7 +30,7 @@ public class AuthController {
     private final JwtTokenUtils jwtTokenUtils;
 
     @PostMapping("/sign-up")
-    public Response signUp(@RequestBody @Valid SignUp signUp) {
+    public Response signUp(@Valid @RequestBody SignUp signUp) {
         userDetailsManager.createUser(
                 CustomUserDetails.builder()
                 .username(signUp.getUsername())
@@ -44,7 +44,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public JwtResponse login(@RequestBody @Valid Login login) {
+    public JwtResponse login(@Valid @RequestBody Login login) {
         UserDetails userDetails = userDetailsManager.loadUserByUsername(login.getUsername());
 
         checkMatchedPassword(login.getPassword(), userDetails.getPassword());

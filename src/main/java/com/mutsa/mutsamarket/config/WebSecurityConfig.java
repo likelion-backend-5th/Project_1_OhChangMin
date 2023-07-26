@@ -4,6 +4,7 @@ import com.mutsa.mutsamarket.jwt.JwtTokenFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -30,12 +31,10 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authHttp -> authHttp
-                                .requestMatchers(
-                                        "/auth/**"
-                                )
-                                .permitAll()
-                                .anyRequest()
-                                .authenticated()
+                                .requestMatchers(HttpMethod.GET, "/items").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/items/{itemId}").permitAll()
+                                .requestMatchers("/auth/**").permitAll()
+                                .anyRequest().authenticated()
                 )
                 .sessionManagement(
                         sessionManagement -> sessionManagement

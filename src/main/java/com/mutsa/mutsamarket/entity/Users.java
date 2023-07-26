@@ -1,6 +1,7 @@
 package com.mutsa.mutsamarket.entity;
 
 import com.mutsa.mutsamarket.exception.PasswordMismatchException;
+import com.mutsa.mutsamarket.exception.UserMismatchedException;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,4 +29,10 @@ public class Users {
     private String email;
 
     private String address;
+
+    public void checkEquals(Users user) {
+        if (!id.equals(user.getId())) {
+            throw new UserMismatchedException();
+        }
+    }
 }
