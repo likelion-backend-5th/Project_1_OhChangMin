@@ -7,6 +7,7 @@ import com.mutsa.mutsamarket.entity.Users;
 import com.mutsa.mutsamarket.repository.UserRepository;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +42,8 @@ class AuthControllerTest {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @AfterEach
-    void afterEach() {
+    @BeforeEach
+    void beforeEach() {
         userRepository.deleteAll();
     }
 
