@@ -1,6 +1,5 @@
-package com.mutsa.mutsamarket.service;
+package com.mutsa.mutsamarket.security;
 
-import com.mutsa.mutsamarket.entity.CustomUserDetails;
 import com.mutsa.mutsamarket.entity.Users;
 import com.mutsa.mutsamarket.exception.NotFoundUserException;
 import com.mutsa.mutsamarket.exception.UsernameAlreadyExistsException;

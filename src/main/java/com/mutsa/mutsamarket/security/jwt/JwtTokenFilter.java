@@ -1,6 +1,6 @@
-package com.mutsa.mutsamarket.jwt;
+package com.mutsa.mutsamarket.security.jwt;
 
-import com.mutsa.mutsamarket.entity.CustomUserDetails;
+import com.mutsa.mutsamarket.security.CustomUserDetails;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

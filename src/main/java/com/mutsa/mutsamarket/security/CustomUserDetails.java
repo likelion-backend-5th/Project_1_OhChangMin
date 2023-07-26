@@ -1,5 +1,6 @@
-package com.mutsa.mutsamarket.entity;
+package com.mutsa.mutsamarket.security;
 
+import com.mutsa.mutsamarket.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

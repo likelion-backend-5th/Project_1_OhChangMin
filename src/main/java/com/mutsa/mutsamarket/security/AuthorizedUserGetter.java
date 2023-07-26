@@ -1,4 +1,4 @@
-package com.mutsa.mutsamarket.util;
+package com.mutsa.mutsamarket.security;
 
 import com.mutsa.mutsamarket.exception.NotExistAuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;

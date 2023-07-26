@@ -3,14 +3,12 @@ package com.mutsa.mutsamarket.api;
 import com.mutsa.mutsamarket.api.request.ItemCreate;
 import com.mutsa.mutsamarket.api.response.ItemResponse;
 import com.mutsa.mutsamarket.api.response.Response;
-import com.mutsa.mutsamarket.api.response.ResponseMessageConst;
 import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.service.ItemService;
-import com.mutsa.mutsamarket.util.AuthorizedUserGetter;
+import com.mutsa.mutsamarket.security.AuthorizedUserGetter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.*;
@@ -51,6 +49,8 @@ public class ItemController {
         itemService.modify(itemId, item, username);
         return new Response(ITEM_UPDATE);
     }
+
+    // TODO 이미지 첨부 구현
 
     @DeleteMapping("{itemId}")
     public Response delete(@PathVariable Long itemId) {
