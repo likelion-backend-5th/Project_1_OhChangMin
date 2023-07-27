@@ -2,16 +2,13 @@ package com.mutsa.mutsamarket.service;
 
 import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.entity.Users;
-import com.mutsa.mutsamarket.exception.NotFoundItemException;
-import com.mutsa.mutsamarket.exception.NotFoundUserException;
 import com.mutsa.mutsamarket.repository.ItemRepository;
 import com.mutsa.mutsamarket.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.springframework.data.domain.PageRequest.of;
 
 @Service
 @RequiredArgsConstructor
@@ -23,39 +20,32 @@ public class ItemService {
 
     @Transactional
     public void register(Item item, String username) {
-        Users user = userRepository.findByUsername(username)
-                .orElseThrow(NotFoundUserException::new);
+        Users user = userRepository.getByUsername(username);
+
         item.setUser(user);
         itemRepository.save(item);
     }
 
     public Page<Item> findItems(int page, int limit) {
-        return itemRepository.findAll(of(page - 1, limit));
+        return itemRepository.findAll(PageRequest.of(page - 1, limit));
     }
 
     public Item findItem(Long itemId) {
-        return itemRepository.findById(itemId)
-                .orElseThrow(NotFoundItemException::new);
+        return itemRepository.getById(itemId);
     }
 
     @Transactional
     public void modify(Long itemId, Item item, String username) {
-        Item findItem = itemRepository.findById(itemId)
-                .orElseThrow(NotFoundItemException::new);
-
-        Users user = userRepository.findByUsername(username)
-                .orElseThrow(NotFoundUserException::new);
+        Item findItem = itemRepository.getById(itemId);
+        Users user = userRepository.getByUsername(username);
 
         findItem.change(user, item);
     }
 
     @Transactional
     public void delete(Long itemId, String username) {
-        Item findItem = itemRepository.findById(itemId)
-                .orElseThrow(NotFoundItemException::new);
-
-        Users user = userRepository.findByUsername(username)
-                .orElseThrow(NotFoundUserException::new);
+        Item findItem = itemRepository.getById(itemId);
+        Users user = userRepository.getByUsername(username);
 
         findItem.checkUser(user);
         itemRepository.delete(findItem);
