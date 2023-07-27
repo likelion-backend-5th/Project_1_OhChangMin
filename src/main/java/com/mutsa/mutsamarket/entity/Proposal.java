@@ -1,6 +1,7 @@
 package com.mutsa.mutsamarket.entity;
 
 import com.mutsa.mutsamarket.entity.enumtype.ProposalStatus;
+import com.mutsa.mutsamarket.exception.StatusChangeNotAllowedException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -53,6 +54,9 @@ public class Proposal {
     public void response(Item item, Users user, ProposalStatus status) {
         this.item.checkEquals(item);
         this.item.checkUser(user);
+        if (this.status != PROPOSAL) {
+            throw new StatusChangeNotAllowedException();
+        }
         this.status = status;
     }
 

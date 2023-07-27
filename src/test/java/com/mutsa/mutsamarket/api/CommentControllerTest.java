@@ -1,38 +1,22 @@
 package com.mutsa.mutsamarket.api;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mutsa.mutsamarket.api.request.CommentCreate;
-import com.mutsa.mutsamarket.api.request.Login;
 import com.mutsa.mutsamarket.api.request.ReplyCreate;
-import com.mutsa.mutsamarket.api.response.JwtResponse;
-import com.mutsa.mutsamarket.api.response.ResponseMessageConst;
 import com.mutsa.mutsamarket.entity.Comment;
 import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.entity.Users;
-import com.mutsa.mutsamarket.entity.enumtype.ItemStatus;
 import com.mutsa.mutsamarket.repository.CommentRepository;
 import com.mutsa.mutsamarket.repository.ItemRepository;
 import com.mutsa.mutsamarket.repository.UserRepository;
-import com.mutsa.mutsamarket.util.EntityGetter;
-import com.mutsa.mutsamarket.util.LoginUtil;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultHandler;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -43,9 +27,7 @@ import static com.mutsa.mutsamarket.util.EntityGetter.*;
 import static com.mutsa.mutsamarket.util.EntityGetter.getComment;
 import static com.mutsa.mutsamarket.util.LoginUtil.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.MediaType.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -63,8 +45,6 @@ class CommentControllerTest {
     @Autowired CommentRepository commentRepository;
 
     @Autowired ObjectMapper objectMapper;
-
-    @Autowired PasswordEncoder passwordEncoder;
 
     @Test
     @DisplayName("댓글 등록 성공")
