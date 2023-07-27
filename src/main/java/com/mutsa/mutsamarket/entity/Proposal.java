@@ -46,13 +46,12 @@ public class Proposal {
                 .status(PROPOSAL).build();
     }
 
-    public void change(Item item, Users user, Integer suggestedPrice) {
-        check(item, user);
+    public void change(Users user, Integer suggestedPrice) {
+        checkUser(user);
         this.suggestedPrice = suggestedPrice;
     }
 
-    public void response(Item item, Users user, ProposalStatus status) {
-        this.item.checkEquals(item);
+    public void response(Users user, ProposalStatus status) {
         this.item.checkUser(user);
         if (this.status != PROPOSAL) {
             throw new StatusChangeNotAllowedException();
@@ -60,14 +59,13 @@ public class Proposal {
         this.status = status;
     }
 
-    public void confirm(Item item, Users user) {
-        check(item, user);
+    public void confirm(Users user) {
+        checkUser(user);
         this.status = CONFIRMED;
         this.item.soldOut();
     }
 
-    public void check(Item item, Users user) {
-        this.item.checkEquals(item);
+    public void checkUser(Users user) {
         this.user.checkEquals(user);
     }
 }

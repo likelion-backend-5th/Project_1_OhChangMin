@@ -1,7 +1,6 @@
 package com.mutsa.mutsamarket.entity;
 
 import com.mutsa.mutsamarket.entity.enumtype.ItemStatus;
-import com.mutsa.mutsamarket.exception.ItemMismatchedException;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,12 +35,6 @@ public class Item {
 
     public void setUser(Users user) {
         this.user = user;
-    }
-
-    public void checkEquals(Item item) {
-        if (!id.equals(item.getId())) {
-            throw new ItemMismatchedException();
-        }
     }
 
     public void change(Users user, Item item) {

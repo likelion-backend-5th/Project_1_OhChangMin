@@ -43,19 +43,17 @@ public class Comment {
                  .build();
     }
 
-    public void change(Item item, Users user, String content) {
-        check(item, user);
+    public void change(Users user, String content) {
+        checkUser(user);
         this.content = content;
     }
 
-    public void addReply(Item item, Users user, String reply) {
-        this.item.checkEquals(item);
+    public void addReply(Users user, String reply) {
         this.item.checkUser(user);
         this.reply = reply;
     }
 
-    public void check(Item item, Users user) {
-        this.item.checkEquals(item);
+    public void checkUser(Users user) {
         this.user.checkEquals(user);
     }
 }

@@ -1,5 +1,6 @@
 package com.mutsa.mutsamarket.repository;
 
+import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.entity.Proposal;
 import com.mutsa.mutsamarket.exception.NotFoundCommentException;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -18,9 +19,9 @@ public class ProposalQueryRepository {
 
     private final JPAQueryFactory query;
 
-    public Proposal findWithItemUser(Long id) {
+    public Proposal findWithItemUser(Long id, Item paramItem) {
           return Optional.ofNullable(query.selectFrom(proposal)
-                        .where(proposal.id.eq(id))
+                        .where(proposal.id.eq(id).and(proposal.item.eq(paramItem)))
                         .leftJoin(proposal.item, item).fetchJoin()
                         .leftJoin(proposal.user, users).fetchJoin()
                         .fetchOne())

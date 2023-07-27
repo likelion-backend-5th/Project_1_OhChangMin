@@ -39,26 +39,26 @@ public class CommentService {
 
     public void modify(Long itemId, Long commentId, String username, String content) {
         Item item = itemRepository.getById(itemId);
-        Comment comment = commentQueryRepository.findWithItemUser(commentId);
+        Comment comment = commentQueryRepository.findWithItemUser(commentId, item);
         Users user = userRepository.getByUsername(username);
 
-        comment.change(item, user, content);
+        comment.change(user, content);
     }
 
     public void addReply(Long itemId, Long commentId, String username, String reply) {
         Item item = itemRepository.getById(itemId);
-        Comment comment = commentQueryRepository.findWithItemUser(commentId);
+        Comment comment = commentQueryRepository.findWithItemUser(commentId, item);
         Users user = userRepository.getByUsername(username);
 
-        comment.addReply(item, user, reply);
+        comment.addReply(user, reply);
     }
 
     public void delete(Long itemId, Long commentId, String username) {
         Item item = itemRepository.getById(itemId);
-        Comment comment = commentQueryRepository.findWithItemUser(commentId);
+        Comment comment = commentQueryRepository.findWithItemUser(commentId, item);
         Users user = userRepository.getByUsername(username);
 
-        comment.check(item, user);
+        comment.checkUser(user);
         commentRepository.delete(comment);
     }
 }

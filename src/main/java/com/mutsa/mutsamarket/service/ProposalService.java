@@ -52,35 +52,35 @@ public class ProposalService {
 
     public void modify(Long itemId, Long proposalId, String username, Integer suggestedPrice) {
         Item item = itemRepository.getById(itemId);
-        Proposal proposal = proposalQueryRepository.findWithItemUser(proposalId);
+        Proposal proposal = proposalQueryRepository.findWithItemUser(proposalId, item);
         Users user = userRepository.getByUsername(username);
 
-        proposal.change(item, user, suggestedPrice);
+        proposal.change(user, suggestedPrice);
     }
 
     public void delete(Long itemId, Long proposalId, String username) {
         Item item = itemRepository.getById(itemId);
-        Proposal proposal = proposalQueryRepository.findWithItemUser(proposalId);
+        Proposal proposal = proposalQueryRepository.findWithItemUser(proposalId, item);
         Users user = userRepository.getByUsername(username);
 
-        proposal.check(item, user);
+        proposal.checkUser(user);
         proposalRepository.delete(proposal);
     }
 
     public void response(Long itemId, Long proposalId, String username, ProposalStatus status) {
         Item item = itemRepository.getById(itemId);
-        Proposal proposal = proposalQueryRepository.findWithItemUser(proposalId);
+        Proposal proposal = proposalQueryRepository.findWithItemUser(proposalId, item);
         Users user = userRepository.getByUsername(username);
 
-        proposal.response(item, user, status);
+        proposal.response(user, status);
     }
 
     public void confirm(Long itemId, Long proposalId, String username) {
         Item item = itemRepository.getById(itemId);
-        Proposal proposal = proposalQueryRepository.findWithItemUser(proposalId);
+        Proposal proposal = proposalQueryRepository.findWithItemUser(proposalId, item);
         Users user = userRepository.getByUsername(username);
 
-        proposal.confirm(item, user);
+        proposal.confirm(user);
         proposalRepository.updateStatusByIdNot(itemId, proposalId, ProposalStatus.REFUSE);
     }
 }
