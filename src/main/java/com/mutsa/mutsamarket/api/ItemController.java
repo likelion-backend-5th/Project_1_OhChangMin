@@ -4,12 +4,17 @@ import com.mutsa.mutsamarket.api.request.ItemCreate;
 import com.mutsa.mutsamarket.api.response.ItemResponse;
 import com.mutsa.mutsamarket.api.response.Response;
 import com.mutsa.mutsamarket.entity.Item;
+import com.mutsa.mutsamarket.file.FileStore;
+import com.mutsa.mutsamarket.file.StoredFile;
 import com.mutsa.mutsamarket.service.ItemService;
 import com.mutsa.mutsamarket.security.AuthorizedUserGetter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.*;
 
@@ -19,11 +24,12 @@ import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.*;
 public class ItemController {
 
     private final ItemService itemService;
+    private final FileStore fileStore;
 
     @PostMapping
     public Response create(@Valid @RequestBody ItemCreate request) {
-        Item item = ItemCreate.toEntity(request);
         String username = AuthorizedUserGetter.getUsername();
+        Item item = ItemCreate.toEntity(request);
         itemService.register(item, username);
         return new Response(ITEM_CREATE);
     }
@@ -50,7 +56,14 @@ public class ItemController {
         return new Response(ITEM_UPDATE);
     }
 
-    // TODO 이미지 첨부 구현
+    @PutMapping("{itemId}/image")
+    public Response uploadImage(@PathVariable Long itemId,
+                                @RequestPart MultipartFile image) {
+        String username = AuthorizedUserGetter.getUsername();
+        String imageUrl = fileStore.storeFile(image);
+        itemService.addImage(itemId, username, imageUrl);
+        return new Response(ADD_IMAGE);
+    }
 
     @DeleteMapping("{itemId}")
     public Response delete(@PathVariable Long itemId) {

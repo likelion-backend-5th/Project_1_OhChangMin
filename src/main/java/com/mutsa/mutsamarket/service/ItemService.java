@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class ItemService {
 
     private final ItemRepository itemRepository;
@@ -42,6 +42,13 @@ public class ItemService {
         Users user = userRepository.getByUsername(username);
 
         findItem.change(user, item);
+    }
+
+    public void addImage(Long itemId, String username, String imageUrl) {
+        Item item = itemQueryRepository.findWithUser(itemId);
+        Users user = userRepository.getByUsername(username);
+
+        item.addImage(user, imageUrl);
     }
 
     public void delete(Long itemId, String username) {

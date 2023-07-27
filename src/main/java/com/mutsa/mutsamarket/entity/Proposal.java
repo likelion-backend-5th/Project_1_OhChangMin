@@ -52,7 +52,7 @@ public class Proposal {
     }
 
     public void response(Users user, ProposalStatus status) {
-        this.item.checkUser(user);
+        item.checkUser(user);
         if (this.status != PROPOSAL) {
             throw new StatusChangeNotAllowedException();
         }
@@ -61,8 +61,8 @@ public class Proposal {
 
     public void confirm(Users user) {
         checkUser(user);
-        this.status = CONFIRMED;
-        this.item.soldOut();
+        status = CONFIRMED;
+        item.soldOut();
     }
 
     public void checkUser(Users user) {

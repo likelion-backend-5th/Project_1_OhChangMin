@@ -49,7 +49,7 @@ public class Comment {
     }
 
     public void addReply(Users user, String reply) {
-        this.item.checkUser(user);
+        item.checkUser(user);
         this.reply = reply;
     }
 

@@ -30,6 +30,8 @@ public class Item {
     @Column(nullable = false)
     private int minPriceWanted;
 
+    private String imageUrl;
+
     @Enumerated(EnumType.STRING)
     private ItemStatus status;
 
@@ -42,6 +44,11 @@ public class Item {
         title = item.getTitle();
         description = item.getDescription();
         minPriceWanted = item.getMinPriceWanted();
+    }
+
+    public void addImage(Users user, String imageUrl) {
+        checkUser(user);
+        this.imageUrl = imageUrl;
     }
 
     public void checkUser(Users user) {

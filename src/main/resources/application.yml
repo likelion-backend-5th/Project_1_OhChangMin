@@ -15,3 +15,6 @@ spring:
 
 jwt:
   secret: aaaabbbsdifqbvaesoioegwaaaabbbsdifqbvaesoioegwaaaabbbsdifqbvaesasdfqve
+
+file:
+  dir: /Users/changminoh/Desktop/Project_1_OhChangMin/src/main/resources/static/images/

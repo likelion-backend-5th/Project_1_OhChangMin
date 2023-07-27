@@ -13,8 +13,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.mutsa.mutsamarket.entity.Comment.*;
+
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CommentService {
 
     private final ItemRepository itemRepository;
@@ -26,8 +29,7 @@ public class CommentService {
         Item item = itemRepository.getById(itemId);
         Users user = userRepository.getByUsername(username);
 
-        Comment comment = Comment.createComment(item, user, content);
-        commentRepository.save(comment);
+        commentRepository.save(createComment(item, user, content));
     }
 
     @Transactional(readOnly = true)

@@ -13,6 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.mutsa.mutsamarket.entity.Proposal.*;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -28,8 +30,7 @@ public class ProposalService {
         Item item = itemRepository.getById(itemId);
         Users user = userRepository.getByUsername(username);
 
-        Proposal proposal = Proposal.createProposal(item, user, suggestedPrice);
-        proposalRepository.save(proposal);
+        proposalRepository.save(createProposal(item, user, suggestedPrice));
     }
 
     @Transactional(readOnly = true)

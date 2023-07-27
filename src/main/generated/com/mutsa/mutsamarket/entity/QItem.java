@@ -26,6 +26,8 @@ public class QItem extends EntityPathBase<Item> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final StringPath imageUrl = createString("imageUrl");
+
     public final NumberPath<Integer> minPriceWanted = createNumber("minPriceWanted", Integer.class);
 
     public final EnumPath<com.mutsa.mutsamarket.entity.enumtype.ItemStatus> status = createEnum("status", com.mutsa.mutsamarket.entity.enumtype.ItemStatus.class);

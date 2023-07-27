@@ -27,7 +27,6 @@ public class JwtTokenUtils {
                 .build();
     }
 
-
     public String getSubject(String token) {
         try {
             return jwtParser

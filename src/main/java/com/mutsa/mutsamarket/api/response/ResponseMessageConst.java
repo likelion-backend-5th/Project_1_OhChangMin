@@ -6,6 +6,7 @@ public interface ResponseMessageConst {
 
     String ITEM_CREATE = "등록이 완료되었습니다.";
     String ITEM_UPDATE = "물품이 수정되었습니다.";
+    String ADD_IMAGE = "이미지가 등록되었습니다.";
     String ITEM_DELETE = "물품을 삭제했습니다.";
 
     String COMMENT_CREATE = "댓글이 등록되었습니다.";
