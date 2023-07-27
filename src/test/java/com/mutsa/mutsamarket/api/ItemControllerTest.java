@@ -24,6 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -40,6 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 class ItemControllerTest {
 
     @Autowired
@@ -56,12 +58,6 @@ class ItemControllerTest {
 
     @Autowired
     PasswordEncoder passwordEncoder;
-
-    @BeforeEach
-    void beforeEach() {
-        itemRepository.deleteAll();
-        userRepository.deleteAll();
-    }
 
     @Test
     @DisplayName("아이템 등록 성공")

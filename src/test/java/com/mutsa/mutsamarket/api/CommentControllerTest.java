@@ -33,6 +33,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -50,6 +51,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 class CommentControllerTest {
 
     @Autowired MockMvc mockMvc;
@@ -63,13 +65,6 @@ class CommentControllerTest {
     @Autowired ObjectMapper objectMapper;
 
     @Autowired PasswordEncoder passwordEncoder;
-
-    @BeforeEach
-    void beforeEach() {
-        commentRepository.deleteAll();
-        itemRepository.deleteAll();
-        userRepository.deleteAll();
-    }
 
     @Test
     @DisplayName("댓글 등록 성공")

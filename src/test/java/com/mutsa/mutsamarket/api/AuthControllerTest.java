@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 class AuthControllerTest {
 
     @Autowired
@@ -41,11 +43,6 @@ class AuthControllerTest {
 
     @Autowired
     PasswordEncoder passwordEncoder;
-
-    @BeforeEach
-    void beforeEach() {
-        userRepository.deleteAll();
-    }
 
     @Test
     @DisplayName("회원 가입 성공")
