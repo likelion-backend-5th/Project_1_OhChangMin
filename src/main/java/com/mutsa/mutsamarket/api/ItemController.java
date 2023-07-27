@@ -5,7 +5,6 @@ import com.mutsa.mutsamarket.api.response.ItemResponse;
 import com.mutsa.mutsamarket.api.response.Response;
 import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.file.FileStore;
-import com.mutsa.mutsamarket.file.StoredFile;
 import com.mutsa.mutsamarket.service.ItemService;
 import com.mutsa.mutsamarket.security.AuthorizedUserGetter;
 import jakarta.validation.Valid;
@@ -13,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.*;
 
