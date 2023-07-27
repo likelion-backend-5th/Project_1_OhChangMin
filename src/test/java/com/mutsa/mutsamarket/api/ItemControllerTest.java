@@ -10,6 +10,8 @@ import com.mutsa.mutsamarket.entity.Users;
 import com.mutsa.mutsamarket.entity.enumtype.ItemStatus;
 import com.mutsa.mutsamarket.repository.ItemRepository;
 import com.mutsa.mutsamarket.repository.UserRepository;
+import com.mutsa.mutsamarket.util.EntityGetter;
+import com.mutsa.mutsamarket.util.LoginUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,11 +26,15 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.*;
+import static com.mutsa.mutsamarket.util.EntityGetter.*;
+import static com.mutsa.mutsamarket.util.LoginUtil.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -68,7 +74,7 @@ class ItemControllerTest {
 
         userRepository.save(user);
 
-        String token = loginAndGetJwtToken(username, password);
+        String token = loginAndGetJwtToken(mockMvc, username, password);
         String itemTitle = "중고 맥북 팝니다";
 
         ItemCreate itemCreate = ItemCreate.builder().title(itemTitle)
@@ -82,7 +88,7 @@ class ItemControllerTest {
                         .content(objectMapper.writeValueAsString(itemCreate)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message").value(ITEM_CREATE))
-                .andDo(MockMvcResultHandlers.print());
+                .andDo(print());
 
         List<Item> all = itemRepository.findAll();
         assertThat(all.size()).isEqualTo(1);
@@ -115,7 +121,7 @@ class ItemControllerTest {
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content.length()").value(limit))
-                .andDo(MockMvcResultHandlers.print());
+                .andDo(print());
     }
 
     @Test
@@ -137,7 +143,7 @@ class ItemControllerTest {
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(item.getId()))
-                .andDo(MockMvcResultHandlers.print());
+                .andDo(print());
     }
 
     @Test
@@ -153,7 +159,7 @@ class ItemControllerTest {
         Item item = getItem(user, "title", "description", 10000);
         itemRepository.save(item);
 
-        String token = loginAndGetJwtToken(username, password);
+        String token = loginAndGetJwtToken(mockMvc, username, password);
 
         String newItemTitle = "new title";
         ItemCreate itemCreate = ItemCreate.builder().title(newItemTitle)
@@ -167,7 +173,7 @@ class ItemControllerTest {
                         .content(objectMapper.writeValueAsString(itemCreate)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message").value(ITEM_UPDATE))
-                .andDo(MockMvcResultHandlers.print());
+                .andDo(print());
 
         Item findItem = itemRepository.findById(item.getId()).get();
 
@@ -187,51 +193,16 @@ class ItemControllerTest {
         Item item = getItem(user, "title", "description", 10000);
         itemRepository.save(item);
 
-        String token = loginAndGetJwtToken(username, password);
+        String token = loginAndGetJwtToken(mockMvc, username, password);
 
         mockMvc.perform(delete("/items/" + item.getId())
                         .contentType(APPLICATION_JSON)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message").value(ITEM_DELETE))
-                .andDo(MockMvcResultHandlers.print());
+                .andDo(print());
 
-        List<Item> all = itemRepository.findAll();
-
-        assertThat(all.size()).isEqualTo(0);
+        assertThatThrownBy(() -> itemRepository.findById(item.getId()).get())
+                .isInstanceOf(NoSuchElementException.class);
     }
-
-    private Item getItem(Users user, String title, String description, int minPriceWanted) {
-        return Item.builder()
-                .user(user)
-                .title(title)
-                .description(description)
-                .minPriceWanted(minPriceWanted)
-                .status(ItemStatus.SALE)
-                .build();
-    }
-
-
-    private Users getUser(String username, String password) {
-        return Users.builder()
-                .username(username)
-                .password(passwordEncoder.encode(password))
-                .build();
-    }
-
-    private String loginAndGetJwtToken(String username, String password) throws Exception {
-
-        Login login = new Login(username, password);
-        String loginRequestJson = objectMapper.writeValueAsString(login);
-
-        MvcResult result = mockMvc.perform(post("/auth/login")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(loginRequestJson))
-                .andReturn();
-
-        String responseBody = result.getResponse().getContentAsString();
-        JwtResponse jwtResponse = objectMapper.readValue(responseBody, JwtResponse.class);
-        return jwtResponse.getToken();
-    }
-
 }
