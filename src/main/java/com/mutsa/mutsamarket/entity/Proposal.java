@@ -44,4 +44,10 @@ public class Proposal {
                 .suggestedPrice(suggestedPrice)
                 .status(PROPOSAL).build();
     }
+
+    public void change(Item item, Users user, Integer suggestedPrice) {
+        this.item.checkEquals(item);
+        this.user.checkEquals(user);
+        this.suggestedPrice = suggestedPrice;
+    }
 }

@@ -5,10 +5,7 @@ import com.mutsa.mutsamarket.entity.Proposal;
 import com.mutsa.mutsamarket.entity.Users;
 import com.mutsa.mutsamarket.exception.NotFoundProposalException;
 import com.mutsa.mutsamarket.exception.UserMismatchedException;
-import com.mutsa.mutsamarket.repository.ItemQueryRepository;
-import com.mutsa.mutsamarket.repository.ItemRepository;
-import com.mutsa.mutsamarket.repository.ProposalRepository;
-import com.mutsa.mutsamarket.repository.UserRepository;
+import com.mutsa.mutsamarket.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +23,7 @@ public class ProposalService {
     private final ItemQueryRepository itemQueryRepository;
     private final UserRepository userRepository;
     private final ProposalRepository proposalRepository;
+    private final ProposalQueryRepository proposalQueryRepository;
 
     @Transactional
     public void propose(Long itemId, String username, Integer suggestedPrice) {
@@ -51,5 +49,14 @@ public class ProposalService {
             }
             return result;
         }
+    }
+
+    @Transactional
+    public void modify(Long itemId, Long proposalId, String username, Integer suggestedPrice) {
+        Item item = itemRepository.getById(itemId);
+        Proposal proposal = proposalQueryRepository.findWithItemUser(proposalId);
+        Users user = userRepository.getByUsername(username);
+
+        proposal.change(item, user, suggestedPrice);
     }
 }

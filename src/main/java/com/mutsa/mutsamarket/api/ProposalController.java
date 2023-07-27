@@ -36,4 +36,13 @@ public class ProposalController {
         return proposalService.findProposals(itemId, username, page, limit)
                 .map(ProposalResponse::fromEntity);
     }
+
+    @PutMapping("{proposalId}")
+    public Response update(@PathVariable Long itemId,
+                                @PathVariable Long proposalId,
+                                @Valid @RequestBody ProposalCreate request) {
+        String username = AuthorizedUserGetter.getUsername();
+        proposalService.modify(itemId, proposalId, username, request.getSuggestedPrice());
+        return new Response("제안이 수정되었습니다.");
+    }
 }
