@@ -20,7 +20,6 @@ public class ItemService {
     private final ItemQueryRepository itemQueryRepository;
     private final UserRepository userRepository;
 
-    @Transactional
     public void register(Item item, String username) {
         Users user = userRepository.getByUsername(username);
 
@@ -28,15 +27,16 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    @Transactional(readOnly = true)
     public Page<Item> findItems(int page, int limit) {
         return itemRepository.findAll(PageRequest.of(page - 1, limit));
     }
 
+    @Transactional(readOnly = true)
     public Item findItem(Long itemId) {
         return itemRepository.getById(itemId);
     }
 
-    @Transactional
     public void modify(Long itemId, Item item, String username) {
         Item findItem = itemQueryRepository.findWithUser(itemId);
         Users user = userRepository.getByUsername(username);
@@ -44,7 +44,6 @@ public class ItemService {
         findItem.change(user, item);
     }
 
-    @Transactional
     public void delete(Long itemId, String username) {
         Item findItem = itemQueryRepository.findWithUser(itemId);
         Users user = userRepository.getByUsername(username);

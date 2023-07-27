@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class CommentService {
 
     private final ItemRepository itemRepository;
@@ -23,7 +22,6 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final CommentQueryRepository commentQueryRepository;
 
-    @Transactional
     public void addComment(Long itemId, String username, String content) {
         Item item = itemRepository.getById(itemId);
         Users user = userRepository.getByUsername(username);
@@ -32,13 +30,13 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
+    @Transactional(readOnly = true)
     public Page<Comment> findComments(Long itemId, Integer page, Integer limit) {
         Item item = itemRepository.getById(itemId);
 
         return commentRepository.findByItem(item, PageRequest.of(page - 1, limit));
     }
 
-    @Transactional
     public void modify(Long itemId, Long commentId, String username, String content) {
         Item item = itemRepository.getById(itemId);
         Comment comment = commentQueryRepository.findWithItemUser(commentId);
@@ -47,7 +45,6 @@ public class CommentService {
         comment.change(item, user, content);
     }
 
-    @Transactional
     public void addReply(Long itemId, Long commentId, String username, String reply) {
         Item item = itemRepository.getById(itemId);
         Comment comment = commentQueryRepository.findWithItemUser(commentId);
@@ -56,7 +53,6 @@ public class CommentService {
         comment.addReply(item, user, reply);
     }
 
-    @Transactional
     public void delete(Long itemId, Long commentId, String username) {
         Item item = itemRepository.getById(itemId);
         Comment comment = commentQueryRepository.findWithItemUser(commentId);
