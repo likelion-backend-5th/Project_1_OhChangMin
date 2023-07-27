@@ -1,7 +1,8 @@
 package com.mutsa.mutsamarket.entity;
 
 import com.mutsa.mutsamarket.entity.enumtype.ProposalStatus;
-import com.mutsa.mutsamarket.exception.StatusChangeNotAllowedException;
+import com.mutsa.mutsamarket.exception.NotAllowConfirmException;
+import com.mutsa.mutsamarket.exception.NotAllowResponseException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -54,13 +55,16 @@ public class Proposal {
     public void response(Users user, ProposalStatus status) {
         item.checkUser(user);
         if (this.status != PROPOSAL) {
-            throw new StatusChangeNotAllowedException();
+            throw new NotAllowResponseException();
         }
         this.status = status;
     }
 
     public void confirm(Users user) {
         checkUser(user);
+        if (status != ACCEPT) {
+            throw new NotAllowConfirmException();
+        }
         status = CONFIRMED;
         item.soldOut();
     }

@@ -29,6 +29,7 @@ public class FileStoreImpl implements FileStore {
         try {
             file.transferTo(new File(pathName));
         } catch (IOException e) {
+            log.info("파일 저장 실패", e);
             throw new FileStoreFailException(e);
         }
         return pathName;
