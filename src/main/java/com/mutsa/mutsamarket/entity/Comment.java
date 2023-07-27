@@ -44,14 +44,12 @@ public class Comment {
     }
 
     public void change(Item item, Users user, String content) {
-        this.item.checkEquals(item);
-        this.user.checkEquals(user);
+        check(item, user);
         this.content = content;
     }
 
     public void addReply(Item item, Users user, String reply) {
-        this.item.checkEquals(item);
-        this.item.checkUser(user);
+        check(item, user);
         this.reply = reply;
     }
 

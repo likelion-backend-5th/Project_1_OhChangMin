@@ -1,9 +1,11 @@
 package com.mutsa.mutsamarket.api;
 
 import com.mutsa.mutsamarket.api.request.ProposalCreate;
+import com.mutsa.mutsamarket.api.request.ProposalProgress;
 import com.mutsa.mutsamarket.api.response.ProposalResponse;
 import com.mutsa.mutsamarket.api.response.Response;
 
+import com.mutsa.mutsamarket.entity.enumtype.ProposalStatus;
 import com.mutsa.mutsamarket.security.AuthorizedUserGetter;
 import com.mutsa.mutsamarket.service.ProposalService;
 import jakarta.validation.Valid;
@@ -11,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import static com.mutsa.mutsamarket.entity.enumtype.ProposalStatus.*;
 
 @Slf4j
 @RestController
@@ -39,10 +43,40 @@ public class ProposalController {
 
     @PutMapping("{proposalId}")
     public Response update(@PathVariable Long itemId,
-                                @PathVariable Long proposalId,
-                                @Valid @RequestBody ProposalCreate request) {
+                           @PathVariable Long proposalId,
+                           @Valid @RequestBody ProposalCreate request) {
         String username = AuthorizedUserGetter.getUsername();
         proposalService.modify(itemId, proposalId, username, request.getSuggestedPrice());
         return new Response("제안이 수정되었습니다.");
+    }
+
+    @DeleteMapping("{proposalId}")
+    public Response delete(@PathVariable Long itemId,
+                           @PathVariable Long proposalId) {
+        String username = AuthorizedUserGetter.getUsername();
+        proposalService.delete(itemId, proposalId, username);
+        return new Response("제안을 삭제했습니다.");
+    }
+
+    @PutMapping("{proposalId}/progress")
+    public Response progress(@PathVariable Long itemId,
+                                  @PathVariable Long proposalId,
+                                  @Valid @RequestBody ProposalProgress request) {
+        String username = AuthorizedUserGetter.getUsername();
+        ProposalStatus status = fromValue(request.getStatus());
+
+        switch (status) {
+            case ACCEPT, REFUSE ->  {
+                proposalService.response(itemId, proposalId, username, status);
+                return new Response("제안의 상태가 변경되었습니다.");
+            }
+            case CONFIRMED -> {
+                proposalService.confirm(itemId, proposalId, username);
+                return new Response("구매가 확정되었습니다.");
+            }
+            default -> {
+                return new Response("올바른 Status 요청이 아닙니다.");
+            }
+        }
     }
 }

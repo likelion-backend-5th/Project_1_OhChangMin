@@ -46,8 +46,24 @@ public class Proposal {
     }
 
     public void change(Item item, Users user, Integer suggestedPrice) {
+        check(item, user);
+        this.suggestedPrice = suggestedPrice;
+    }
+
+    public void response(Item item, Users user, ProposalStatus status) {
+        this.item.checkEquals(item);
+        this.item.checkUser(user);
+        this.status = status;
+    }
+
+    public void confirm(Item item, Users user) {
+        check(item, user);
+        this.status = CONFIRMED;
+        this.item.soldOut();
+    }
+
+    public void check(Item item, Users user) {
         this.item.checkEquals(item);
         this.user.checkEquals(user);
-        this.suggestedPrice = suggestedPrice;
     }
 }

@@ -54,4 +54,8 @@ public class Item {
     public void checkUser(Users user) {
         this.user.checkEquals(user);
     }
+
+    public void soldOut() {
+        status = ItemStatus.SOLD_OUT;
+    }
 }
