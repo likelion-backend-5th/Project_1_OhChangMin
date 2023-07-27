@@ -49,7 +49,8 @@ public class Comment {
     }
 
     public void addReply(Item item, Users user, String reply) {
-        check(item, user);
+        this.item.checkEquals(item);
+        this.item.checkUser(user);
         this.reply = reply;
     }
 
