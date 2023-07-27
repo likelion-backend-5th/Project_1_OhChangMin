@@ -33,6 +33,7 @@ public class WebSecurityConfig {
                         authHttp -> authHttp
                                 .requestMatchers(HttpMethod.GET, "/items").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/items/{itemId}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/items/{itemId}/comments").permitAll()
                                 .requestMatchers("/auth/**").permitAll()
                                 .anyRequest().authenticated()
                 )

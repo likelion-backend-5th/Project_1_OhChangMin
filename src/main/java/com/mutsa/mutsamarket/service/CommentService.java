@@ -3,6 +3,7 @@ package com.mutsa.mutsamarket.service;
 import com.mutsa.mutsamarket.entity.Comment;
 import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.entity.Users;
+import com.mutsa.mutsamarket.repository.CommentQueryRepository;
 import com.mutsa.mutsamarket.repository.CommentRepository;
 import com.mutsa.mutsamarket.repository.ItemRepository;
 import com.mutsa.mutsamarket.repository.UserRepository;
@@ -20,6 +21,7 @@ public class CommentService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
+    private final CommentQueryRepository commentQueryRepository;
 
     @Transactional
     public void addComment(Long itemId, String username, String content) {
@@ -39,7 +41,7 @@ public class CommentService {
     @Transactional
     public void modify(Long itemId, Long commentId, String username, String content) {
         Item item = itemRepository.getById(itemId);
-        Comment comment = commentRepository.getById(commentId);
+        Comment comment = commentQueryRepository.findWithItemUser(commentId);
         Users user = userRepository.getByUsername(username);
 
         comment.change(item, user, content);
@@ -48,7 +50,7 @@ public class CommentService {
     @Transactional
     public void addReply(Long itemId, Long commentId, String username, String reply) {
         Item item = itemRepository.getById(itemId);
-        Comment comment = commentRepository.getById(commentId);
+        Comment comment = commentQueryRepository.findWithItemUser(commentId);
         Users user = userRepository.getByUsername(username);
 
         comment.addReply(item, user, reply);
@@ -57,7 +59,7 @@ public class CommentService {
     @Transactional
     public void delete(Long itemId, Long commentId, String username) {
         Item item = itemRepository.getById(itemId);
-        Comment comment = commentRepository.getById(commentId);
+        Comment comment = commentQueryRepository.findWithItemUser(commentId);
         Users user = userRepository.getByUsername(username);
 
         comment.check(item, user);

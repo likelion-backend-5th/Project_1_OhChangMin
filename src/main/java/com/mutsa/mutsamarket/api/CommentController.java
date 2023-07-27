@@ -4,6 +4,7 @@ import com.mutsa.mutsamarket.api.request.CommentCreate;
 import com.mutsa.mutsamarket.api.request.ReplyCreate;
 import com.mutsa.mutsamarket.api.response.CommentResponse;
 import com.mutsa.mutsamarket.api.response.Response;
+import com.mutsa.mutsamarket.api.response.ResponseMessageConst;
 import com.mutsa.mutsamarket.security.AuthorizedUserGetter;
 import com.mutsa.mutsamarket.service.CommentService;
 import jakarta.validation.Valid;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.*;
 
 @Slf4j
 @RestController
@@ -25,7 +28,7 @@ public class CommentController {
                            @Valid @RequestBody CommentCreate request) {
         String username = AuthorizedUserGetter.getUsername();
         commentService.addComment(itemId, username, request.getContent());
-        return new Response("댓글이 등록되었습니다.");
+        return new Response(COMMENT_CREATE);
     }
 
     @GetMapping
@@ -42,7 +45,7 @@ public class CommentController {
                            @Valid @RequestBody CommentCreate request) {
         String username = AuthorizedUserGetter.getUsername();
         commentService.modify(itemId, commentId, username, request.getContent());
-        return new Response("댓글이 수정되었습니다.");
+        return new Response(COMMENT_UPDATE);
     }
 
     @PutMapping("{commentId}/reply")
@@ -51,7 +54,7 @@ public class CommentController {
                              @Valid @RequestBody ReplyCreate request) {
         String username = AuthorizedUserGetter.getUsername();
         commentService.addReply(itemId, commentId, username, request.getReply());
-        return new Response("댓글에 답변이 추가되었습니다.");
+        return new Response(REPLY_ADD);
     }
 
     @DeleteMapping("{commentId}")
@@ -59,6 +62,6 @@ public class CommentController {
                            @PathVariable Long commentId) {
         String username = AuthorizedUserGetter.getUsername();
         commentService.delete(itemId, commentId, username);
-        return new Response("댓글을 삭제했습니다.");
+        return new Response(COMMENT_DELETE);
     }
 }

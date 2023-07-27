@@ -2,6 +2,7 @@ package com.mutsa.mutsamarket.service;
 
 import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.entity.Users;
+import com.mutsa.mutsamarket.repository.ItemQueryRepository;
 import com.mutsa.mutsamarket.repository.ItemRepository;
 import com.mutsa.mutsamarket.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private final ItemQueryRepository itemQueryRepository;
     private final UserRepository userRepository;
 
     @Transactional
@@ -36,7 +38,7 @@ public class ItemService {
 
     @Transactional
     public void modify(Long itemId, Item item, String username) {
-        Item findItem = itemRepository.getById(itemId);
+        Item findItem = itemQueryRepository.findWithUser(itemId);
         Users user = userRepository.getByUsername(username);
 
         findItem.change(user, item);
@@ -44,7 +46,7 @@ public class ItemService {
 
     @Transactional
     public void delete(Long itemId, String username) {
-        Item findItem = itemRepository.getById(itemId);
+        Item findItem = itemQueryRepository.findWithUser(itemId);
         Users user = userRepository.getByUsername(username);
 
         findItem.checkUser(user);

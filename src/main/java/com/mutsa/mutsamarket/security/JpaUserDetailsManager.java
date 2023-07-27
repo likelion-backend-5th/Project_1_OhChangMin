@@ -19,8 +19,7 @@ public class JpaUserDetailsManager implements UserDetailsManager {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        Users users = userRepository.findByUsername(username)
-                .orElseThrow(NotFoundUserException::new);
+        Users users = userRepository.getByUsername(username);
         return CustomUserDetails.fromEntity(users);
     }
 
