@@ -6,8 +6,11 @@ import com.mutsa.mutsamarket.exception.NotFoundCommentException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    Page<Comment> findByItem(Item item, Pageable pageable);
+    @Query("select c from Comment c join fetch c.user where c.item = :item")
+    Page<Comment> findByItemWithUser(@Param("item") Item item, Pageable pageable);
 }

@@ -36,7 +36,7 @@ public class CommentService {
     public Page<Comment> findComments(Long itemId, Integer page, Integer limit) {
         Item item = itemRepository.getById(itemId);
 
-        return commentRepository.findByItem(item, PageRequest.of(page - 1, limit));
+        return commentRepository.findByItemWithUser(item, PageRequest.of(page - 1, limit));
     }
 
     public void modify(Long itemId, Long commentId, String username, String content) {
