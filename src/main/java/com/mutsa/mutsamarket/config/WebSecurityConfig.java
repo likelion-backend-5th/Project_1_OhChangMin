@@ -34,12 +34,23 @@ public class WebSecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/api/items").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/items/{itemId}").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/items/{itemId}/comments").permitAll()
-                                .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers(
+                                        "/api/auth/**",
+                                        "/auth/**"
+                                ).permitAll()
                                 .anyRequest().authenticated()
                 )
-                .sessionManagement(
-                        sessionManagement -> sessionManagement
-                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .formLogin(
+                        formLogin -> formLogin
+                                .loginPage("/auth/login")
+                                .defaultSuccessUrl("/")
+                                .failureUrl("/auth/login?fail")
+                                .permitAll()
+                )
+                .logout(
+                        logout -> logout
+                                .logoutUrl("/auth/logout")
+                                .logoutSuccessUrl("/auth/login")
                 )
                 .addFilterBefore(jwtTokenFilter, AuthorizationFilter.class);
         return http.build();
