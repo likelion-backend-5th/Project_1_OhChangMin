@@ -29,7 +29,7 @@ public class ItemService {
 
     @Transactional(readOnly = true)
     public Page<Item> findItems(int page, int limit) {
-        return itemRepository.findAll(PageRequest.of(page - 1, limit));
+        return itemRepository.findAllWithUser(PageRequest.of(page - 1, limit));
     }
 
     @Transactional(readOnly = true)

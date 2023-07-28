@@ -7,6 +7,7 @@ import lombok.Data;
 public class ItemResponse {
 
     private Long id;
+    private String username;
     private String title;
     private String description;
     private int minPriceWanted;
@@ -15,6 +16,7 @@ public class ItemResponse {
     public static ItemResponse fromEntity(Item item) {
         ItemResponse response = new ItemResponse();
         response.setId(item.getId());
+        response.setUsername(item.getUser().getUsername());
         response.setTitle(item.getTitle());
         response.setDescription(item.getDescription());
         response.setMinPriceWanted(item.getMinPriceWanted());

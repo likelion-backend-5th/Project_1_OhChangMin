@@ -4,6 +4,8 @@ import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.exception.NotFoundItemException;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
