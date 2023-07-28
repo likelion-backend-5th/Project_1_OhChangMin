@@ -1,6 +1,7 @@
 package com.mutsa.mutsamarket.entity;
 
 import com.mutsa.mutsamarket.entity.enumtype.ProposalStatus;
+import com.mutsa.mutsamarket.exception.NotAllowAcceptCancelException;
 import com.mutsa.mutsamarket.exception.NotAllowConfirmException;
 import com.mutsa.mutsamarket.exception.NotAllowResponseException;
 import jakarta.persistence.*;
@@ -71,5 +72,12 @@ public class Proposal {
 
     public void checkUser(String username) {
         this.user.checkEquals(username);
+    }
+
+    public void checkDeletable(String username) {
+        checkUser(username);
+        if (status == CONFIRMED) {
+            throw new NotAllowAcceptCancelException();
+        }
     }
 }

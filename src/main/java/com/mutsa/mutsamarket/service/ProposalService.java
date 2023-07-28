@@ -30,8 +30,8 @@ public class ProposalService {
         if (item.isSeller(username)) {
             throw new NotAllowItemSellerProposalException();
         }
-
         Users user = userRepository.getByUsername(username);
+
         proposalRepository.save(createProposal(item, user, suggestedPrice));
     }
 
@@ -57,7 +57,7 @@ public class ProposalService {
         Item item = itemRepository.getById(itemId);
         Proposal proposal = proposalQueryRepository.getWithItemUser(proposalId, item);
 
-        proposal.checkUser(username);
+        proposal.checkDeletable(username);
         proposalRepository.delete(proposal);
     }
 
