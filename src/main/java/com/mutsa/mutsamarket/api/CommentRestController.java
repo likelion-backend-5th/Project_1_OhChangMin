@@ -16,9 +16,9 @@ import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/items/{itemId}/comments")
+@RequestMapping("/api/items/{itemId}/comments")
 @RequiredArgsConstructor
-public class CommentController {
+public class CommentRestController {
 
     private final CommentService commentService;
 

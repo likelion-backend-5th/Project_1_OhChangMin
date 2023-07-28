@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-class AuthControllerTest {
+class AuthRestControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -56,7 +56,7 @@ class AuthControllerTest {
                 .email("lou0124@naver.com")
                 .build();
 
-        mockMvc.perform(post("/auth/sign-up")
+        mockMvc.perform(post("/api/auth/sign-up")
                 .contentType(APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(signUp)))
                 .andExpect(status().isOk())
@@ -86,7 +86,7 @@ class AuthControllerTest {
 
         Login login = new Login(username, password);
 
-        mockMvc.perform(post("/auth/login")
+        mockMvc.perform(post("/api/auth/login")
                 .contentType(APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(login)))
                 .andExpect(status().isOk())

@@ -32,6 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-class ProposalControllerTest {
+class ProposalRestControllerTest {
 
     @Autowired MockMvc mockMvc;
 
@@ -68,8 +69,7 @@ class ProposalControllerTest {
         ProposalCreate proposalCreate = new ProposalCreate(suggestedPrice);
         String token = loginAndGetJwtToken(mockMvc, customer.getUsername(), password);
 
-        mockMvc.perform(MockMvcRequestBuilders
-                        .post("/items/"+ item.getId() +"/proposals")
+        mockMvc.perform(post("/api/items/"+ item.getId() +"/proposals")
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(proposalCreate)))
@@ -106,8 +106,7 @@ class ProposalControllerTest {
         ProposalCreate proposalCreate = new ProposalCreate(newSuggestedPrice);
         String token = loginAndGetJwtToken(mockMvc, proposalUsername, password);
 
-        mockMvc.perform(MockMvcRequestBuilders
-                        .put("/items/"+ item.getId() +"/proposals/" + proposal.getId())
+        mockMvc.perform(put("/api/items/"+ item.getId() +"/proposals/" + proposal.getId())
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(proposalCreate)))
@@ -138,8 +137,7 @@ class ProposalControllerTest {
 
         String token = loginAndGetJwtToken(mockMvc, proposalUsername, password);
 
-        mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/items/"+ item.getId() +"/proposals/" + proposal.getId())
+        mockMvc.perform(delete("/api/items/"+ item.getId() +"/proposals/" + proposal.getId())
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").value(PROPOSAL_DELETE))

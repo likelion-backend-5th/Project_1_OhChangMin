@@ -22,8 +22,8 @@ import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.SIGNUP_SUC
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auth")
-public class AuthController {
+@RequestMapping("/api/auth")
+public class AuthRestController {
 
     private final UserDetailsManager userDetailsManager;
     private final PasswordEncoder passwordEncoder;

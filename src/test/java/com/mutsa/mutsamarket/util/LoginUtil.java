@@ -18,7 +18,7 @@ public class LoginUtil {
         Login login = new Login(username, password);
         String loginRequestJson = objectMapper.writeValueAsString(login);
 
-        MvcResult result = mockMvc.perform(post("/auth/login")
+        MvcResult result = mockMvc.perform(post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(loginRequestJson))
                 .andReturn();

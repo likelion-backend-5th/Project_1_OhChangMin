@@ -20,8 +20,8 @@ import static com.mutsa.mutsamarket.entity.enumtype.ProposalStatus.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/items/{itemId}/proposals")
-public class ProposalController {
+@RequestMapping("/api/items/{itemId}/proposals")
+public class ProposalRestController {
 
     private final ProposalService proposalService;
 

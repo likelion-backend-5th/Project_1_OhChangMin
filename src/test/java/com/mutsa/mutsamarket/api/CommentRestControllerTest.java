@@ -28,13 +28,14 @@ import static com.mutsa.mutsamarket.util.EntityGetter.getComment;
 import static com.mutsa.mutsamarket.util.LoginUtil.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.http.MediaType.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-class CommentControllerTest {
+class CommentRestControllerTest {
 
     @Autowired MockMvc mockMvc;
 
@@ -61,8 +62,7 @@ class CommentControllerTest {
         CommentCreate commentCreate = new CommentCreate(content);
         String token = loginAndGetJwtToken(mockMvc, username, password);
 
-        mockMvc.perform(MockMvcRequestBuilders
-                .post("/items/"+ item.getId() +"/comments")
+        mockMvc.perform(post("/api/items/"+ item.getId() +"/comments")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                 .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(commentCreate)))
@@ -97,8 +97,7 @@ class CommentControllerTest {
 
         int limit = 25;
 
-        mockMvc.perform(MockMvcRequestBuilders
-                .get("/items/"+ item.getId() +"/comments")
+        mockMvc.perform(get("/api/items/"+ item.getId() +"/comments")
                         .param("page", "1")
                         .param("limit", String.valueOf(25)))
                 .andExpect(status().isOk())
@@ -128,8 +127,7 @@ class CommentControllerTest {
         CommentCreate commentCreate = new CommentCreate(newContent);
         String token = loginAndGetJwtToken(mockMvc, commentUsername, password);
 
-        mockMvc.perform(MockMvcRequestBuilders
-                .put("/items/"+ item.getId() +"/comments/" + comment.getId())
+        mockMvc.perform(put("/api/items/"+ item.getId() +"/comments/" + comment.getId())
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(commentCreate)))
@@ -164,8 +162,7 @@ class CommentControllerTest {
 
         assertThat(comment.getReply()).isNullOrEmpty();
 
-        mockMvc.perform(MockMvcRequestBuilders
-                .put("/items/"+ item.getId() +"/comments/" + comment.getId() + "/reply")
+        mockMvc.perform(put("/api/items/"+ item.getId() +"/comments/" + comment.getId() + "/reply")
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(replyCreate)))
@@ -198,8 +195,7 @@ class CommentControllerTest {
 
         assertThat(comment.getReply()).isNullOrEmpty();
 
-        mockMvc.perform(MockMvcRequestBuilders
-                .delete("/items/"+ item.getId() +"/comments/" + comment.getId())
+        mockMvc.perform(delete("/api/items/"+ item.getId() +"/comments/" + comment.getId())
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").value(COMMENT_DELETE))

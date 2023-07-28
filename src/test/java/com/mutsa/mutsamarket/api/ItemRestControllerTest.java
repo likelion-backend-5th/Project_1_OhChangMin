@@ -43,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-class ItemControllerTest {
+class ItemRestControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -79,7 +79,7 @@ class ItemControllerTest {
                 .minPriceWanted(1000000)
                 .build();
 
-        mockMvc.perform(post("/items")
+        mockMvc.perform(post("/api/items")
                         .contentType(APPLICATION_JSON)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .content(objectMapper.writeValueAsString(itemCreate)))
@@ -112,7 +112,7 @@ class ItemControllerTest {
 
         int limit = 25;
 
-        mockMvc.perform(get("/items")
+        mockMvc.perform(get("/api/items")
                         .param("page", "1")
                         .param("limit", String.valueOf(limit))
                         .contentType(APPLICATION_JSON))
@@ -136,7 +136,7 @@ class ItemControllerTest {
 
         itemRepository.save(item);
 
-        mockMvc.perform(get("/items/" + item.getId())
+        mockMvc.perform(get("/api/items/" + item.getId())
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(item.getId()))
@@ -164,7 +164,7 @@ class ItemControllerTest {
                 .minPriceWanted(1000000)
                 .build();
 
-        mockMvc.perform(put("/items/" + item.getId())
+        mockMvc.perform(put("/api/items/" + item.getId())
                         .contentType(APPLICATION_JSON)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .content(objectMapper.writeValueAsString(itemCreate)))
@@ -192,7 +192,7 @@ class ItemControllerTest {
 
         String token = loginAndGetJwtToken(mockMvc, username, password);
 
-        mockMvc.perform(delete("/items/" + item.getId())
+        mockMvc.perform(delete("/api/items/" + item.getId())
                         .contentType(APPLICATION_JSON)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
                 .andExpect(status().isOk())

@@ -16,9 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.*;
 
 @RestController
-@RequestMapping("/items")
+@RequestMapping("/api/items")
 @RequiredArgsConstructor
-public class ItemController {
+public class ItemRestController {
 
     private final ItemService itemService;
     private final FileStore fileStore;

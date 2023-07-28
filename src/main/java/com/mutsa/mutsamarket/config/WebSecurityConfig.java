@@ -31,10 +31,10 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authHttp -> authHttp
-                                .requestMatchers(HttpMethod.GET, "/items").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/items/{itemId}").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/items/{itemId}/comments").permitAll()
-                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/items").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/items/{itemId}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/items/{itemId}/comments").permitAll()
+                                .requestMatchers("/api/auth/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(
