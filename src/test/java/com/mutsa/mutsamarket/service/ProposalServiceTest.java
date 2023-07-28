@@ -63,7 +63,7 @@ class ProposalServiceTest {
     }
 
     @Test
-    @DisplayName("아이템 주인, 제안자가 아닌 유저 페이징 조회 시 예외발생")
+    @DisplayName("아이템 주인, 제안자가 아닌 유저 페이징 조회 시 0개 조회")
     void test3() {
         String owner = "owner";
         String user1name = "user1";
@@ -75,8 +75,9 @@ class ProposalServiceTest {
 
         Item item = setFindProposalTest(owner, user1name, user2name);
 
-        assertThatThrownBy(() -> proposalService.findProposals(item.getId(), whoAreYou, 1, 25))
-                .isInstanceOf(NotFoundProposalException.class);
+        Page<Proposal> proposals = proposalService.findProposals(item.getId(), whoAreYou, 1, 25);
+
+        assertThat(proposals.getContent().size()).isEqualTo(0);
     }
 
     @Test

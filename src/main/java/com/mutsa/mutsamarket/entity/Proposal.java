@@ -47,21 +47,21 @@ public class Proposal {
                 .status(PROPOSAL).build();
     }
 
-    public void change(Users user, Integer suggestedPrice) {
-        checkUser(user);
+    public void change(String username, Integer suggestedPrice) {
+        checkUser(username);
         this.suggestedPrice = suggestedPrice;
     }
 
-    public void response(Users user, ProposalStatus status) {
-        item.checkUser(user);
+    public void response(String username, ProposalStatus status) {
+        item.checkUser(username);
         if (this.status != PROPOSAL) {
             throw new NotAllowResponseException();
         }
         this.status = status;
     }
 
-    public void confirm(Users user) {
-        checkUser(user);
+    public void confirm(String username) {
+        checkUser(username);
         if (status != ACCEPT) {
             throw new NotAllowConfirmException();
         }
@@ -69,7 +69,7 @@ public class Proposal {
         item.soldOut();
     }
 
-    public void checkUser(Users user) {
-        this.user.checkEquals(user);
+    public void checkUser(String username) {
+        this.user.checkEquals(username);
     }
 }

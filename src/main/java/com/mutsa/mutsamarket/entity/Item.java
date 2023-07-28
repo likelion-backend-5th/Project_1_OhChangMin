@@ -39,20 +39,20 @@ public class Item {
         this.user = user;
     }
 
-    public void change(Users user, Item item) {
-        checkUser(user);
+    public void change(String username, Item item) {
+        checkUser(username);
         title = item.getTitle();
         description = item.getDescription();
         minPriceWanted = item.getMinPriceWanted();
     }
 
-    public void addImage(Users user, String imageUrl) {
-        checkUser(user);
+    public void addImage(String username, String imageUrl) {
+        checkUser(username);
         this.imageUrl = imageUrl;
     }
 
-    public void checkUser(Users user) {
-        this.user.checkEquals(user);
+    public void checkUser(String username) {
+        this.user.checkEquals(username);
     }
 
     public void soldOut() {

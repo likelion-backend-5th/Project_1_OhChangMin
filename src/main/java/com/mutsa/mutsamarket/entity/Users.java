@@ -16,7 +16,7 @@ public class Users {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
@@ -30,8 +30,8 @@ public class Users {
 
     private String address;
 
-    public void checkEquals(Users user) {
-        if (!id.equals(user.getId())) {
+    public void checkEquals(String username) {
+        if (!this.username.equals(username)) {
             throw new UserMismatchedException();
         }
     }

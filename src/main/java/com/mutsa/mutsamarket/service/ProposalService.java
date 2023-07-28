@@ -4,7 +4,6 @@ import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.entity.Proposal;
 import com.mutsa.mutsamarket.entity.Users;
 import com.mutsa.mutsamarket.entity.enumtype.ProposalStatus;
-import com.mutsa.mutsamarket.exception.NotFoundProposalException;
 import com.mutsa.mutsamarket.exception.UserMismatchedException;
 import com.mutsa.mutsamarket.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -35,53 +34,44 @@ public class ProposalService {
 
     @Transactional(readOnly = true)
     public Page<Proposal> findProposals(Long itemId, String username, Integer page, Integer limit) {
-        Item item = itemQueryRepository.findWithUser(itemId);
-        Users user = userRepository.getByUsername(username);
+        Item item = itemQueryRepository.getWithUser(itemId);
         PageRequest pageRequest = PageRequest.of(page - 1, limit);
 
         try {
-            item.checkUser(user);
+            item.checkUser(username);
             return proposalRepository.findByItem(item, pageRequest);
         } catch (UserMismatchedException e) {
-            Page<Proposal> result = proposalRepository.findByItemAndUser(item, user, pageRequest);
-            if (!result.hasContent()) {
-                throw new NotFoundProposalException(e);
-            }
-            return result;
+            return proposalRepository.findByItemAndUsername(item, username, pageRequest);
         }
     }
 
     public void modify(Long itemId, Long proposalId, String username, Integer suggestedPrice) {
         Item item = itemRepository.getById(itemId);
-        Proposal proposal = proposalQueryRepository.findWithItemUser(proposalId, item);
-        Users user = userRepository.getByUsername(username);
+        Proposal proposal = proposalQueryRepository.getWithItemUser(proposalId, item);
 
-        proposal.change(user, suggestedPrice);
+        proposal.change(username, suggestedPrice);
     }
 
     public void delete(Long itemId, Long proposalId, String username) {
         Item item = itemRepository.getById(itemId);
-        Proposal proposal = proposalQueryRepository.findWithItemUser(proposalId, item);
-        Users user = userRepository.getByUsername(username);
+        Proposal proposal = proposalQueryRepository.getWithItemUser(proposalId, item);
 
-        proposal.checkUser(user);
+        proposal.checkUser(username);
         proposalRepository.delete(proposal);
     }
 
     public void response(Long itemId, Long proposalId, String username, ProposalStatus status) {
         Item item = itemRepository.getById(itemId);
-        Proposal proposal = proposalQueryRepository.findWithItemUser(proposalId, item);
-        Users user = userRepository.getByUsername(username);
+        Proposal proposal = proposalQueryRepository.getWithItemUser(proposalId, item);
 
-        proposal.response(user, status);
+        proposal.response(username, status);
     }
 
     public void confirm(Long itemId, Long proposalId, String username) {
         Item item = itemRepository.getById(itemId);
-        Proposal proposal = proposalQueryRepository.findWithItemUser(proposalId, item);
-        Users user = userRepository.getByUsername(username);
+        Proposal proposal = proposalQueryRepository.getWithItemUser(proposalId, item);
 
-        proposal.confirm(user);
+        proposal.confirm(username);
         proposalRepository.updateStatusByIdNot(itemId, proposalId, ProposalStatus.REFUSE);
     }
 }

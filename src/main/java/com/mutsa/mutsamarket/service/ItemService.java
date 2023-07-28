@@ -38,24 +38,21 @@ public class ItemService {
     }
 
     public void modify(Long itemId, Item item, String username) {
-        Item findItem = itemQueryRepository.findWithUser(itemId);
-        Users user = userRepository.getByUsername(username);
+        Item findItem = itemQueryRepository.getWithUser(itemId);
 
-        findItem.change(user, item);
+        findItem.change(username, item);
     }
 
     public void addImage(Long itemId, String username, String imageUrl) {
-        Item item = itemQueryRepository.findWithUser(itemId);
-        Users user = userRepository.getByUsername(username);
+        Item item = itemQueryRepository.getWithUser(itemId);
 
-        item.addImage(user, imageUrl);
+        item.addImage(username, imageUrl);
     }
 
     public void delete(Long itemId, String username) {
-        Item findItem = itemQueryRepository.findWithUser(itemId);
-        Users user = userRepository.getByUsername(username);
+        Item findItem = itemQueryRepository.getWithUser(itemId);
 
-        findItem.checkUser(user);
+        findItem.checkUser(username);
         itemRepository.delete(findItem);
     }
 }

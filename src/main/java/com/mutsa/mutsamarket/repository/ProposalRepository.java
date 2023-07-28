@@ -2,7 +2,6 @@ package com.mutsa.mutsamarket.repository;
 
 import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.entity.Proposal;
-import com.mutsa.mutsamarket.entity.Users;
 import com.mutsa.mutsamarket.entity.enumtype.ProposalStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +14,8 @@ public interface ProposalRepository extends JpaRepository<Proposal, Long> {
 
     Page<Proposal> findByItem(Item item, Pageable of);
 
-    Page<Proposal> findByItemAndUser(Item item, Users user, Pageable of);
+    @Query("select p from Proposal p where p.item = :item and p.user.username = :username")
+    Page<Proposal> findByItemAndUsername(@Param("item") Item item, @Param("username") String username, Pageable of);
 
     @Modifying
     @Query("update Proposal p set p.status = :status where p.id != :proposalId and p.item.id = :itemId")
