@@ -34,7 +34,7 @@ public class ItemService {
 
     @Transactional(readOnly = true)
     public Item findItem(Long itemId) {
-        return itemRepository.getById(itemId);
+        return itemQueryRepository.getWithUser(itemId);
     }
 
     public void modify(Long itemId, Item item, String username) {
