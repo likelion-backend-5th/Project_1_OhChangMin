@@ -1,8 +1,8 @@
-package com.mutsa.mutsamarket.api;
+package com.mutsa.mutsamarket.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mutsa.mutsamarket.api.request.CommentCreate;
-import com.mutsa.mutsamarket.api.request.ReplyCreate;
+import com.mutsa.mutsamarket.controller.request.CommentCreate;
+import com.mutsa.mutsamarket.controller.request.ReplyCreate;
 import com.mutsa.mutsamarket.entity.Comment;
 import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.entity.Users;
@@ -16,13 +16,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.*;
+import static com.mutsa.mutsamarket.controller.response.ResponseMessageConst.*;
 import static com.mutsa.mutsamarket.util.EntityGetter.*;
 import static com.mutsa.mutsamarket.util.EntityGetter.getComment;
 import static com.mutsa.mutsamarket.util.LoginUtil.*;

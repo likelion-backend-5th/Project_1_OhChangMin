@@ -1,8 +1,8 @@
-package com.mutsa.mutsamarket.api;
+package com.mutsa.mutsamarket.controller.restcontroller;
 
-import com.mutsa.mutsamarket.api.request.ItemCreate;
-import com.mutsa.mutsamarket.api.response.ItemResponse;
-import com.mutsa.mutsamarket.api.response.Response;
+import com.mutsa.mutsamarket.controller.request.ItemCreate;
+import com.mutsa.mutsamarket.controller.response.ItemResponse;
+import com.mutsa.mutsamarket.controller.response.Response;
 import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.file.FileStore;
 import com.mutsa.mutsamarket.service.ItemService;
@@ -13,7 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.*;
+import static com.mutsa.mutsamarket.controller.response.ResponseMessageConst.*;
 
 @RestController
 @RequestMapping("/api/items")

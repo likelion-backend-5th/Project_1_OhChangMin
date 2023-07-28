@@ -1,6 +1,6 @@
 package com.mutsa.mutsamarket.service.security;
 
-import com.mutsa.mutsamarket.api.request.SignUp;
+import com.mutsa.mutsamarket.controller.request.SignUp;
 import com.mutsa.mutsamarket.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

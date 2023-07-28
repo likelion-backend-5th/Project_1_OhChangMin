@@ -1,12 +1,11 @@
 package com.mutsa.mutsamarket.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mutsa.mutsamarket.api.request.Login;
-import com.mutsa.mutsamarket.api.response.JwtResponse;
+import com.mutsa.mutsamarket.controller.request.Login;
+import com.mutsa.mutsamarket.controller.response.JwtResponse;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 

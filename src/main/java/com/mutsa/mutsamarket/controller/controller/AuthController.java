@@ -1,13 +1,9 @@
-package com.mutsa.mutsamarket.api.controller;
+package com.mutsa.mutsamarket.controller.controller;
 
-import com.mutsa.mutsamarket.api.request.Login;
-import com.mutsa.mutsamarket.api.request.SignUp;
-import com.mutsa.mutsamarket.exception.PasswordMismatchException;
-import com.mutsa.mutsamarket.jwt.JwtTokenUtils;
+import com.mutsa.mutsamarket.controller.request.Login;
+import com.mutsa.mutsamarket.controller.request.SignUp;
 import com.mutsa.mutsamarket.service.security.CustomUserDetails;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Controller;

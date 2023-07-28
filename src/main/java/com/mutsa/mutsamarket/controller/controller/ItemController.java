@@ -1,4 +1,4 @@
-package com.mutsa.mutsamarket.api.controller;
+package com.mutsa.mutsamarket.controller.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

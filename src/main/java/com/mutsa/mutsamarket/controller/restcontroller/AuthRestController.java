@@ -1,9 +1,9 @@
-package com.mutsa.mutsamarket.api;
+package com.mutsa.mutsamarket.controller.restcontroller;
 
-import com.mutsa.mutsamarket.api.request.Login;
-import com.mutsa.mutsamarket.api.request.SignUp;
-import com.mutsa.mutsamarket.api.response.JwtResponse;
-import com.mutsa.mutsamarket.api.response.Response;
+import com.mutsa.mutsamarket.controller.request.Login;
+import com.mutsa.mutsamarket.controller.request.SignUp;
+import com.mutsa.mutsamarket.controller.response.JwtResponse;
+import com.mutsa.mutsamarket.controller.response.Response;
 import com.mutsa.mutsamarket.service.security.CustomUserDetails;
 import com.mutsa.mutsamarket.exception.PasswordMismatchException;
 import com.mutsa.mutsamarket.jwt.JwtTokenUtils;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.LOGIN_SUCCESS;
-import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.SIGNUP_SUCCESS;
+import static com.mutsa.mutsamarket.controller.response.ResponseMessageConst.LOGIN_SUCCESS;
+import static com.mutsa.mutsamarket.controller.response.ResponseMessageConst.SIGNUP_SUCCESS;
 
 @RestController
 @RequiredArgsConstructor

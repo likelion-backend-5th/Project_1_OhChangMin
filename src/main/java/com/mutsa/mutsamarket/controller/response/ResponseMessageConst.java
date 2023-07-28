@@ -1,4 +1,4 @@
-package com.mutsa.mutsamarket.api.response;
+package com.mutsa.mutsamarket.controller.response;
 
 public interface ResponseMessageConst {
     String LOGIN_SUCCESS = "로그인이 완료되었습니다.";

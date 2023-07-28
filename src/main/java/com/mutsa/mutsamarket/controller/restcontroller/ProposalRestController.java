@@ -1,9 +1,9 @@
-package com.mutsa.mutsamarket.api;
+package com.mutsa.mutsamarket.controller.restcontroller;
 
-import com.mutsa.mutsamarket.api.request.ProposalCreate;
-import com.mutsa.mutsamarket.api.request.ProposalProgress;
-import com.mutsa.mutsamarket.api.response.ProposalResponse;
-import com.mutsa.mutsamarket.api.response.Response;
+import com.mutsa.mutsamarket.controller.request.ProposalCreate;
+import com.mutsa.mutsamarket.controller.request.ProposalProgress;
+import com.mutsa.mutsamarket.controller.response.ProposalResponse;
+import com.mutsa.mutsamarket.controller.response.Response;
 
 import com.mutsa.mutsamarket.entity.enumtype.ProposalStatus;
 import com.mutsa.mutsamarket.service.ProposalService;
@@ -14,7 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.*;
+import static com.mutsa.mutsamarket.controller.response.ResponseMessageConst.*;
 import static com.mutsa.mutsamarket.entity.enumtype.ProposalStatus.*;
 
 @Slf4j

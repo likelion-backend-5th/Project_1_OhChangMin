@@ -1,16 +1,13 @@
-package com.mutsa.mutsamarket.api;
+package com.mutsa.mutsamarket.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mutsa.mutsamarket.api.request.CommentCreate;
-import com.mutsa.mutsamarket.api.request.ProposalCreate;
-import com.mutsa.mutsamarket.entity.Comment;
+import com.mutsa.mutsamarket.controller.request.ProposalCreate;
 import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.entity.Proposal;
 import com.mutsa.mutsamarket.entity.Users;
 import com.mutsa.mutsamarket.repository.ItemRepository;
 import com.mutsa.mutsamarket.repository.ProposalRepository;
 import com.mutsa.mutsamarket.repository.UserRepository;
-import com.mutsa.mutsamarket.util.LoginUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +15,16 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.*;
+import static com.mutsa.mutsamarket.controller.response.ResponseMessageConst.*;
 import static com.mutsa.mutsamarket.util.EntityGetter.*;
-import static com.mutsa.mutsamarket.util.LoginUtil.*;
 import static com.mutsa.mutsamarket.util.LoginUtil.loginAndGetJwtToken;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

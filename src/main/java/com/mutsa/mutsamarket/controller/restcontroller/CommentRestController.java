@@ -1,9 +1,9 @@
-package com.mutsa.mutsamarket.api;
+package com.mutsa.mutsamarket.controller.restcontroller;
 
-import com.mutsa.mutsamarket.api.request.CommentCreate;
-import com.mutsa.mutsamarket.api.request.ReplyCreate;
-import com.mutsa.mutsamarket.api.response.CommentResponse;
-import com.mutsa.mutsamarket.api.response.Response;
+import com.mutsa.mutsamarket.controller.request.CommentCreate;
+import com.mutsa.mutsamarket.controller.request.ReplyCreate;
+import com.mutsa.mutsamarket.controller.response.CommentResponse;
+import com.mutsa.mutsamarket.controller.response.Response;
 import com.mutsa.mutsamarket.service.CommentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.*;
+import static com.mutsa.mutsamarket.controller.response.ResponseMessageConst.*;
 
 @Slf4j
 @RestController

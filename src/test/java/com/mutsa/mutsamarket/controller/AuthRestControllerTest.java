@@ -1,13 +1,11 @@
-package com.mutsa.mutsamarket.api;
+package com.mutsa.mutsamarket.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mutsa.mutsamarket.api.request.Login;
-import com.mutsa.mutsamarket.api.request.SignUp;
+import com.mutsa.mutsamarket.controller.request.Login;
+import com.mutsa.mutsamarket.controller.request.SignUp;
 import com.mutsa.mutsamarket.entity.Users;
 import com.mutsa.mutsamarket.repository.UserRepository;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.LOGIN_SUCCESS;
-import static com.mutsa.mutsamarket.api.response.ResponseMessageConst.SIGNUP_SUCCESS;
+import static com.mutsa.mutsamarket.controller.response.ResponseMessageConst.LOGIN_SUCCESS;
+import static com.mutsa.mutsamarket.controller.response.ResponseMessageConst.SIGNUP_SUCCESS;
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.http.MediaType.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

@@ -1,4 +1,4 @@
-package com.mutsa.mutsamarket.api.response;
+package com.mutsa.mutsamarket.controller.response;
 
 import lombok.Data;
 

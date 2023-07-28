@@ -1,4 +1,4 @@
-package com.mutsa.mutsamarket.api.request;
+package com.mutsa.mutsamarket.controller.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
