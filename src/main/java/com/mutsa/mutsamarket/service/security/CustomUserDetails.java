@@ -1,5 +1,6 @@
 package com.mutsa.mutsamarket.service.security;
 
+import com.mutsa.mutsamarket.api.request.SignUp;
 import com.mutsa.mutsamarket.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -57,6 +58,15 @@ public class CustomUserDetails implements UserDetails {
                 .password(users.getPassword())
                 .email(users.getEmail())
                 .phoneNumber(users.getPhoneNumber())
+                .build();
+    }
+
+    public static CustomUserDetails fromRequest(SignUp signUp) {
+        return CustomUserDetails.builder()
+                .username(signUp.getUsername())
+                .password(signUp.getPassword())
+                .email(signUp.getEmail())
+                .phoneNumber(signUp.getPhoneNumber())
                 .build();
     }
 

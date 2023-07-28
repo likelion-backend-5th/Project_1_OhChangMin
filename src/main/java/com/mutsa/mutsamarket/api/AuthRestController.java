@@ -31,15 +31,7 @@ public class AuthRestController {
 
     @PostMapping("/sign-up")
     public Response signUp(@Valid @RequestBody SignUp signUp) {
-        userDetailsManager.createUser(
-                CustomUserDetails.builder()
-                .username(signUp.getUsername())
-                .password(passwordEncoder.encode(signUp.getPassword()))
-                .email(signUp.getEmail())
-                .phoneNumber(signUp.getPhoneNumber())
-                .address(signUp.getAddress())
-                .build());
-
+        userDetailsManager.createUser(CustomUserDetails.fromRequest(signUp));
         return new Response(SIGNUP_SUCCESS);
     }
 
