@@ -26,12 +26,12 @@ public class ProposalService {
     private final ProposalQueryRepository proposalQueryRepository;
 
     public void propose(Long itemId, String username, Integer suggestedPrice) {
-        Item item = itemRepository.getById(itemId);
-        Users user = userRepository.getByUsername(username);
-
+        Item item = itemQueryRepository.getWithUser(itemId);
         if (item.isSeller(username)) {
             throw new NotAllowItemSellerProposalException();
         }
+
+        Users user = userRepository.getByUsername(username);
         proposalRepository.save(createProposal(item, user, suggestedPrice));
     }
 

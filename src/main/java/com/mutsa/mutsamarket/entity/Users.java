@@ -37,6 +37,6 @@ public class Users {
     }
 
     public boolean equals(String username) {
-        return this.username.equals(username);
+        return getUsername().equals(username);
     }
 }
