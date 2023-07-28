@@ -26,7 +26,6 @@ public class FileStoreImpl implements FileStore {
 
         String storedName = createStoreFileName(file.getOriginalFilename());
         String pathName = fileDir + storedName;
-
         try {
             file.transferTo(new File(pathName));
         } catch (IOException e) {

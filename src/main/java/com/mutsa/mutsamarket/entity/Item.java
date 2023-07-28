@@ -1,9 +1,11 @@
 package com.mutsa.mutsamarket.entity;
 
 import com.mutsa.mutsamarket.entity.enumtype.ItemStatus;
+import com.mutsa.mutsamarket.exception.AlreadySoldOutException;
 import jakarta.persistence.*;
 import lombok.*;
 
+import static com.mutsa.mutsamarket.entity.enumtype.ItemStatus.*;
 import static jakarta.persistence.FetchType.*;
 
 @Getter
@@ -56,6 +58,13 @@ public class Item {
     }
 
     public void soldOut() {
-        status = ItemStatus.SOLD_OUT;
+        if (status == SOLD_OUT) {
+            throw new AlreadySoldOutException();
+        }
+        status = SOLD_OUT;
+    }
+
+    public boolean isSeller(String username) {
+        return user.equals(username);
     }
 }

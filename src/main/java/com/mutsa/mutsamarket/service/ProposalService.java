@@ -4,7 +4,7 @@ import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.entity.Proposal;
 import com.mutsa.mutsamarket.entity.Users;
 import com.mutsa.mutsamarket.entity.enumtype.ProposalStatus;
-import com.mutsa.mutsamarket.exception.UserMismatchedException;
+import com.mutsa.mutsamarket.exception.NotAllowItemSellerProposalException;
 import com.mutsa.mutsamarket.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,6 +29,9 @@ public class ProposalService {
         Item item = itemRepository.getById(itemId);
         Users user = userRepository.getByUsername(username);
 
+        if (item.isSeller(username)) {
+            throw new NotAllowItemSellerProposalException();
+        }
         proposalRepository.save(createProposal(item, user, suggestedPrice));
     }
 
@@ -37,12 +40,10 @@ public class ProposalService {
         Item item = itemQueryRepository.getWithUser(itemId);
         PageRequest pageRequest = PageRequest.of(page - 1, limit);
 
-        try {
-            item.checkUser(username);
+        if (item.isSeller(username)) {
             return proposalRepository.findByItem(item, pageRequest);
-        } catch (UserMismatchedException e) {
-            return proposalRepository.findByItemAndUsername(item, username, pageRequest);
         }
+        return proposalRepository.findByItemAndUsername(item, username, pageRequest);
     }
 
     public void modify(Long itemId, Long proposalId, String username, Integer suggestedPrice) {

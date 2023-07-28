@@ -31,8 +31,12 @@ public class Users {
     private String address;
 
     public void checkEquals(String username) {
-        if (!this.username.equals(username)) {
+        if (!equals(username)) {
             throw new UserMismatchedException();
         }
+    }
+
+    public boolean equals(String username) {
+        return this.username.equals(username);
     }
 }

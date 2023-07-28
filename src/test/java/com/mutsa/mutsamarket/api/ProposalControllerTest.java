@@ -62,9 +62,11 @@ class ProposalControllerTest {
         userRepository.save(user);
         itemRepository.save(item);
 
+        Users customer = getUser("customer", password);
+        userRepository.save(customer);
         int suggestedPrice = 10000;
         ProposalCreate proposalCreate = new ProposalCreate(suggestedPrice);
-        String token = loginAndGetJwtToken(mockMvc, username, password);
+        String token = loginAndGetJwtToken(mockMvc, customer.getUsername(), password);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/items/"+ item.getId() +"/proposals")
