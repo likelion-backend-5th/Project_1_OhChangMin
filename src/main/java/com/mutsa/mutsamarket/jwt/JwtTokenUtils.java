@@ -1,4 +1,4 @@
-package com.mutsa.mutsamarket.security.jwt;
+package com.mutsa.mutsamarket.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;

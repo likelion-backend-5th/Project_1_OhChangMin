@@ -1,4 +1,4 @@
-package com.mutsa.mutsamarket.security;
+package com.mutsa.mutsamarket.service.security;
 
 import com.mutsa.mutsamarket.entity.Users;
 import lombok.AllArgsConstructor;

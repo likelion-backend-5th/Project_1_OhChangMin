@@ -1,7 +1,6 @@
-package com.mutsa.mutsamarket.security;
+package com.mutsa.mutsamarket.service.security;
 
 import com.mutsa.mutsamarket.entity.Users;
-import com.mutsa.mutsamarket.exception.NotFoundUserException;
 import com.mutsa.mutsamarket.exception.UsernameAlreadyExistsException;
 import com.mutsa.mutsamarket.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

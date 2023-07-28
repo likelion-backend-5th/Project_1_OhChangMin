@@ -1,6 +1,6 @@
 package com.mutsa.mutsamarket.config;
 
-import com.mutsa.mutsamarket.security.jwt.JwtTokenFilter;
+import com.mutsa.mutsamarket.jwt.JwtTokenFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
