@@ -12,6 +12,6 @@ public class NotFoundCommentException extends CustomException {
 
     @Override
     public int getStatusCode() {
-        return 400;
+        return 404;
     }
 }

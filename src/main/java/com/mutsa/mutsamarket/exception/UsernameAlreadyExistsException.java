@@ -8,10 +8,6 @@ public class UsernameAlreadyExistsException extends CustomException {
         super(MESSAGE);
     }
 
-    public UsernameAlreadyExistsException(String message) {
-        super(message);
-    }
-
     @Override
     public int getStatusCode() {
         return 400;
