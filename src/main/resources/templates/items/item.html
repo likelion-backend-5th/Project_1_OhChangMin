@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>아이템</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>제목: </td>
+            <td th:text="${item.title}" />
+        </tr>
+        <tr>
+            <td>설명: </td>
+            <td th:text="${item.description}" />
+        </tr>
+        <tr>
+            <td>판매자: </td>
+            <td th:text="${item.username}" />
+        </tr>
+        <tr>
+            <td>가격: </td>
+            <td th:text="${item.minPriceWanted}" />
+        </tr>
+    </table>
+</body>
+</html>
