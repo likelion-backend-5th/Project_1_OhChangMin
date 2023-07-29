@@ -3,8 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>아이템 목록</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th {
+            border: 1px solid black;
+        }
+        td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+    </style>
 </head>
 <body>
-아이템 목록
+    <table>
+        <thead>
+        <thead>
+        <tr>
+            <th>제목</th>
+            <th>판매자</th>
+            <th>상품 상태</th>
+        </tr>
+        </thead>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td><a href="list.html" th:href="@{/items/{itemId}(itemId=${item.id})}" th:text="${item.title}">제목</a></td>
+            <td th:text="${item.username}">판매자</td>
+            <td th:text="${item.status}">상품 상태</td>
+        </tr>
+        </tbody>
+    </table>
 </body>
 </html>
