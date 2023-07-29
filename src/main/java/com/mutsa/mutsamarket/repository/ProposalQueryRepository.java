@@ -5,8 +5,6 @@ import com.mutsa.mutsamarket.entity.Proposal;
 import com.mutsa.mutsamarket.exception.NotFoundCommentException;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
