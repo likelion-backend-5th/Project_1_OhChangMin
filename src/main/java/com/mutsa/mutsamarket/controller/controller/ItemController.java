@@ -5,6 +5,7 @@ import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class ItemController {
     private final ItemService itemService;
 
     @GetMapping
-    public String itemList(Model model) {
+    public String itemList(Model model, Authentication auth) {
         Page<ItemResponse> items = itemService.findItems(1, 25)
                 .map(ItemResponse::fromEntity);
 

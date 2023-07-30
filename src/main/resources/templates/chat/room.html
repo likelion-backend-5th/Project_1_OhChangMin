@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>채팅방</title>
+</head>
+<body onload="connect()">
+    <div th:text="${chat.ownerName}"></div>
+    <div th:text="${chat.buyerName}"></div>
+    <button onclick="send()"> 메세지 전송</button>
+    <p id="response"></p>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="/js/stomp.js"></script>
+    <script type="text/javascript">
+        let stompClient = null;
+        const pathname = window.location.pathname;
+        const chatId = parseInt(pathname.split("/")[4]);
+        // const nickname = decodeURI(pathname.split("/")[3]);
+
+        // function getRoomName() {
+        //     fetch(`/chat/rooms/${roomId}/name`).then((response) => {
+        //         response.json().then((responseBody) => {
+        //             console.log(responseBody);
+        //             document.getElementById('room-name').innerHTML = responseBody.roomName;
+        //         })
+        //     });
+        // }
+
+        function connect() {
+            // getRoomName();
+            const socket = new WebSocket('ws://localhost:8080/chatting');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                console.log('Connected: ' + frame);
+                stompClient.subscribe(`/queue/${chatId}`, function (message) {
+                    console.log('receive: ' + message);
+                    const jsonMessage = JSON.parse(message.body);
+                    console.log('receive: ' + jsonMessage);
+                    // if (Array.isArray(jsonMessage)) initialMessages(jsonMessage)
+                    // else receiveMessage(jsonMessage);
+                    receiveMessage(jsonMessage);
+                });
+                // stompClient.send('/app/chat', {}, JSON.stringify({roomId: chatId}))
+            });
+        }
+
+        function send() {
+            stompClient.send('/app/chat/' + chatId, {}, JSON.stringify({username: "userA", content: "halo"}))
+        }
+
+        function initialMessages(messageList) {
+            for (const message of messageList)
+                receiveMessage(message)
+        }
+
+        function receiveMessage(messageOutput) {
+            const response = document.getElementById('response');
+            const p = document.createElement('p');
+            p.style.wordWrap = 'break-word';
+            // p.appendChild(document.createTextNode(messageOutput.sender + ": "
+            //     + messageOutput.message + " (" + messageOutput.time + ")"));
+            p.appendChild(document.createTextNode(messageOutput.username + ": " + messageOutput.content));
+            response.appendChild(p);
+        }
+
+        // document.getElementById("message-form").addEventListener("submit", (event) => {
+        //     event.preventDefault()
+        //     const messageInput = document.getElementById('message');
+        //     const message = messageInput.value
+        //     stompClient.send("/app/chat",
+        //         {
+        //             "Authorization": "Bearer JWT"
+        //         },
+        //         JSON.stringify({
+        //             'roomId': roomId,
+        //             'sender': nickname,
+        //             'message': message
+        //         }));
+        //     messageInput.value = null
+        // })
+    </script>
+</body>
+</html>

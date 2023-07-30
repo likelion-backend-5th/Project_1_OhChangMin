@@ -37,11 +37,12 @@ public class WebSecurityConfig {
                                 .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/items", "GET")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/items/{itemId}", "GET")).permitAll()
+                                .anyRequest().authenticated()
                 )
                 .formLogin(
                         formLogin -> formLogin
                                 .loginPage("/auth/login")
-                                .defaultSuccessUrl("/items")
+                                .defaultSuccessUrl("/items", true)
                                 .failureUrl("/auth/login?fail")
                                 .permitAll()
                 )

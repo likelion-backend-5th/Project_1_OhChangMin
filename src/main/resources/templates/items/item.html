@@ -23,5 +23,8 @@
             <td th:text="${item.minPriceWanted}" />
         </tr>
     </table>
+    <form th:action="@{'/items/' + ${item.id} + '/chat'}" method="post">
+        <button type="submit">채팅 하기</button>
+    </form>
 </body>
 </html>
