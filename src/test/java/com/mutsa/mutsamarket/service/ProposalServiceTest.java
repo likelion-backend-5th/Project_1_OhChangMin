@@ -5,7 +5,6 @@ import com.mutsa.mutsamarket.entity.Proposal;
 import com.mutsa.mutsamarket.entity.Users;
 import com.mutsa.mutsamarket.exception.NotAllowConfirmException;
 import com.mutsa.mutsamarket.exception.NotAllowResponseException;
-import com.mutsa.mutsamarket.exception.NotFoundProposalException;
 import com.mutsa.mutsamarket.repository.ItemRepository;
 import com.mutsa.mutsamarket.repository.ProposalRepository;
 import com.mutsa.mutsamarket.repository.UserRepository;
@@ -17,12 +16,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.mutsa.mutsamarket.entity.enumtype.ItemStatus.*;
+import static com.mutsa.mutsamarket.entity.enumtype.ItemStatus.SOLD_OUT;
 import static com.mutsa.mutsamarket.entity.enumtype.ProposalStatus.*;
 import static com.mutsa.mutsamarket.util.EntityGetter.*;
-import static com.mutsa.mutsamarket.util.EntityGetter.getItem;
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 @Transactional
@@ -100,7 +98,7 @@ class ProposalServiceTest {
         Proposal proposal = Proposal.createProposal(item, user1, 12000);
         proposalRepository.save(proposal);
 
-        proposalService.response(item.getId(), proposal.getId(), owner, ACCEPT);
+        proposalService.response(proposal.getId(), owner, ACCEPT);
 
         Proposal findProposal = proposalRepository.findById(proposal.getId()).get();
 
@@ -129,7 +127,7 @@ class ProposalServiceTest {
         proposalRepository.save(proposal1);
         proposalRepository.save(proposal2);
 
-        proposalService.response(item.getId(), proposal1.getId(), owner, ACCEPT);
+        proposalService.response(proposal1.getId(), owner, ACCEPT);
         proposalService.confirm(item.getId(), proposal1.getId(), user1.getUsername());
 
         em.flush();
@@ -166,13 +164,13 @@ class ProposalServiceTest {
         proposalRepository.save(proposal1);
         proposalRepository.save(proposal2);
 
-        proposalService.response(item.getId(), proposal1.getId(), owner, ACCEPT);
+        proposalService.response(proposal1.getId(), owner, ACCEPT);
         proposalService.confirm(item.getId(), proposal1.getId(), user1.getUsername());
 
         em.flush();
         em.clear();
 
-        assertThatThrownBy(() -> proposalService.response(item.getId(), proposal2.getId(), owner, ACCEPT))
+        assertThatThrownBy(() -> proposalService.response(proposal2.getId(), owner, ACCEPT))
                 .isInstanceOf(NotAllowResponseException.class);
     }
 
@@ -199,7 +197,7 @@ class ProposalServiceTest {
         proposalRepository.save(proposal1);
         proposalRepository.save(proposal2);
 
-        proposalService.response(item.getId(), proposal1.getId(), owner, REFUSE);
+        proposalService.response(proposal1.getId(), owner, REFUSE);
 
         assertThatThrownBy(() -> proposalService.confirm(item.getId(), proposal1.getId(), user1.getUsername()))
                 .isInstanceOf(NotAllowConfirmException.class);

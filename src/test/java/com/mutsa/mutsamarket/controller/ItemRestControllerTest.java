@@ -20,12 +20,14 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import static com.mutsa.mutsamarket.controller.response.ResponseMessageConst.*;
-import static com.mutsa.mutsamarket.util.EntityGetter.*;
-import static com.mutsa.mutsamarket.util.LoginUtil.*;
-import static org.assertj.core.api.Assertions.*;
+import static com.mutsa.mutsamarket.util.EntityGetter.getItem;
+import static com.mutsa.mutsamarket.util.EntityGetter.getUser;
+import static com.mutsa.mutsamarket.util.LoginUtil.loginAndGetJwtToken;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

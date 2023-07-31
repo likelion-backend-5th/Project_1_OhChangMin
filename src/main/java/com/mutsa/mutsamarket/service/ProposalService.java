@@ -46,31 +46,27 @@ public class ProposalService {
         return proposalRepository.findByItemAndUsername(item, username, pageRequest);
     }
 
-    public void modify(Long itemId, Long proposalId, String username, Integer suggestedPrice) {
-        Item item = itemRepository.getById(itemId);
-        Proposal proposal = proposalQueryRepository.getWithItemUser(proposalId, item);
+    public void modify(Long proposalId, String username, Integer suggestedPrice) {
+        Proposal proposal = proposalQueryRepository.getWithUser(proposalId);
 
         proposal.change(username, suggestedPrice);
     }
 
-    public void delete(Long itemId, Long proposalId, String username) {
-        Item item = itemRepository.getById(itemId);
-        Proposal proposal = proposalQueryRepository.getWithItemUser(proposalId, item);
+    public void delete(Long proposalId, String username) {
+        Proposal proposal = proposalQueryRepository.getWithUser(proposalId);
 
         proposal.checkDeletable(username);
         proposalRepository.delete(proposal);
     }
 
-    public void response(Long itemId, Long proposalId, String username, ProposalStatus status) {
-        Item item = itemRepository.getById(itemId);
-        Proposal proposal = proposalQueryRepository.getWithItemUser(proposalId, item);
+    public void response(Long proposalId, String username, ProposalStatus status) {
+        Proposal proposal = proposalQueryRepository.getWithItem(proposalId);
 
         proposal.response(username, status);
     }
 
     public void confirm(Long itemId, Long proposalId, String username) {
-        Item item = itemRepository.getById(itemId);
-        Proposal proposal = proposalQueryRepository.getWithItemUser(proposalId, item);
+        Proposal proposal = proposalQueryRepository.getWithItemUser(proposalId);
 
         proposal.confirm(username);
         proposalRepository.updateStatusByIdNot(itemId, proposalId, ProposalStatus.REFUSE);

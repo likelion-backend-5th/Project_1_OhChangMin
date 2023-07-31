@@ -43,19 +43,17 @@ public class ProposalRestController {
     }
 
     @PutMapping("{proposalId}")
-    public Response update(@PathVariable Long itemId,
-                           @PathVariable Long proposalId,
+    public Response update(@PathVariable Long proposalId,
                            @Valid @RequestBody ProposalCreate request,
                            Authentication auth) {
-        proposalService.modify(itemId, proposalId, auth.getName(), request.getSuggestedPrice());
+        proposalService.modify(proposalId, auth.getName(), request.getSuggestedPrice());
         return new Response(PROPOSAL_UPDATE);
     }
 
     @DeleteMapping("{proposalId}")
-    public Response delete(@PathVariable Long itemId,
-                           @PathVariable Long proposalId,
+    public Response delete(@PathVariable Long proposalId,
                            Authentication auth) {
-        proposalService.delete(itemId, proposalId, auth.getName());
+        proposalService.delete(proposalId, auth.getName());
         return new Response(PROPOSAL_DELETE);
     }
 
@@ -67,7 +65,7 @@ public class ProposalRestController {
         ProposalStatus status = fromValue(request.getStatus());
         switch (status) {
             case ACCEPT, REFUSE ->  {
-                proposalService.response(itemId, proposalId, auth.getName(), status);
+                proposalService.response(proposalId, auth.getName(), status);
                 return new Response(PROPOSAL_RESPONSE);
             }
             case CONFIRMED -> {

@@ -39,28 +39,25 @@ public class CommentRestController {
     }
 
     @PutMapping("{commentId}")
-    public Response update(@PathVariable Long itemId,
-                           @PathVariable Long commentId,
+    public Response update(@PathVariable Long commentId,
                            @Valid @RequestBody CommentCreate request,
                            Authentication auth) {
-        commentService.modify(itemId, commentId, auth.getName(), request.getContent());
+        commentService.modify(commentId, auth.getName(), request.getContent());
         return new Response(COMMENT_UPDATE);
     }
 
     @PutMapping("{commentId}/reply")
-    public Response addReply(@PathVariable Long itemId,
-                             @PathVariable Long commentId,
+    public Response addReply(@PathVariable Long commentId,
                              @Valid @RequestBody ReplyCreate request,
                              Authentication auth) {
-        commentService.addReply(itemId, commentId, auth.getName(), request.getReply());
+        commentService.addReply(commentId, auth.getName(), request.getReply());
         return new Response(REPLY_ADD);
     }
 
     @DeleteMapping("{commentId}")
-    public Response delete(@PathVariable Long itemId,
-                           @PathVariable Long commentId,
+    public Response delete(@PathVariable Long commentId,
                            Authentication auth) {
-        commentService.delete(itemId, commentId, auth.getName());
+        commentService.delete(commentId, auth.getName());
         return new Response(COMMENT_DELETE);
     }
 }

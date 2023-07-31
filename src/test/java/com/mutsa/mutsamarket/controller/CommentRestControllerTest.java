@@ -23,13 +23,14 @@ import java.util.NoSuchElementException;
 
 import static com.mutsa.mutsamarket.controller.response.ResponseMessageConst.*;
 import static com.mutsa.mutsamarket.util.EntityGetter.*;
-import static com.mutsa.mutsamarket.util.EntityGetter.getComment;
-import static com.mutsa.mutsamarket.util.LoginUtil.*;
-import static org.assertj.core.api.Assertions.*;
-import static org.springframework.http.MediaType.*;
+import static com.mutsa.mutsamarket.util.LoginUtil.loginAndGetJwtToken;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -121,6 +122,7 @@ class CommentRestControllerTest {
 
         Comment comment = getComment(item, user2, "content");
         commentRepository.save(comment);
+
 
         String newContent = "new content";
         CommentCreate commentCreate = new CommentCreate(newContent);
