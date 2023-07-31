@@ -1,4 +1,4 @@
-package com.mutsa.mutsamarket.repository;
+package com.mutsa.mutsamarket.repository.proposal;
 
 import com.mutsa.mutsamarket.entity.Proposal;
 import com.mutsa.mutsamarket.exception.NotFoundCommentException;
@@ -14,7 +14,7 @@ import static com.mutsa.mutsamarket.entity.QUsers.users;
 
 @Repository
 @RequiredArgsConstructor
-public class ProposalQueryRepository {
+public class ProposalQueryRepositoryImpl implements ProposalQueryRepository {
 
     private final JPAQueryFactory query;
 

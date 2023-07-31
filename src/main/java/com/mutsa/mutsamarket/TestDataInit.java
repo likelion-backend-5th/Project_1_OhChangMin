@@ -2,7 +2,7 @@ package com.mutsa.mutsamarket;
 
 import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.entity.Users;
-import com.mutsa.mutsamarket.repository.ItemRepository;
+import com.mutsa.mutsamarket.repository.item.ItemRepository;
 import com.mutsa.mutsamarket.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

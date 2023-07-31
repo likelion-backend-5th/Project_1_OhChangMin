@@ -1,4 +1,4 @@
-package com.mutsa.mutsamarket.repository;
+package com.mutsa.mutsamarket.repository.proposal;
 
 import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.entity.Proposal;
@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface ProposalRepository extends JpaRepository<Proposal, Long> {
+public interface ProposalRepository extends JpaRepository<Proposal, Long>, ProposalQueryRepository {
 
     Page<Proposal> findByItem(Item item, Pageable of);
 

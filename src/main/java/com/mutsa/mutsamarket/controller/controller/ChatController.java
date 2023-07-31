@@ -31,9 +31,7 @@ public class ChatController {
     public String chatList(Authentication auth,
                            Model model) {
         List<Chat> chats = chatService.findChats(auth.getName());
-        System.out.println("chats = " + chats.size());
         model.addAttribute("chats", chats);
-
         return "chats/list";
     }
 

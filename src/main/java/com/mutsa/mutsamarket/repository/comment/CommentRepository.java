@@ -1,4 +1,4 @@
-package com.mutsa.mutsamarket.repository;
+package com.mutsa.mutsamarket.repository.comment;
 
 import com.mutsa.mutsamarket.entity.Comment;
 import com.mutsa.mutsamarket.entity.Item;
@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CommentRepository extends JpaRepository<Comment, Long> {
+public interface CommentRepository extends JpaRepository<Comment, Long>, CommentQueryRepository {
 
     @Query("select c from Comment c join fetch c.user where c.item = :item")
     Page<Comment> findByItemWithUser(@Param("item") Item item, Pageable pageable);

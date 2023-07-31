@@ -3,9 +3,8 @@ package com.mutsa.mutsamarket.service;
 import com.mutsa.mutsamarket.entity.Comment;
 import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.entity.Users;
-import com.mutsa.mutsamarket.repository.CommentQueryRepository;
-import com.mutsa.mutsamarket.repository.CommentRepository;
-import com.mutsa.mutsamarket.repository.ItemRepository;
+import com.mutsa.mutsamarket.repository.comment.CommentRepository;
+import com.mutsa.mutsamarket.repository.item.ItemRepository;
 import com.mutsa.mutsamarket.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,8 +22,6 @@ public class CommentService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
-    private final CommentQueryRepository commentQueryRepository;
-
     public void addComment(Long itemId, String username, String content) {
         Item item = itemRepository.getById(itemId);
         Users user = userRepository.getByUsername(username);
@@ -40,19 +37,19 @@ public class CommentService {
     }
 
     public void modify(Long commentId, String username, String content) {
-        Comment comment = commentQueryRepository.getWithUser(commentId);
+        Comment comment = commentRepository.getWithUser(commentId);
 
         comment.change(username, content);
     }
 
     public void addReply(Long commentId, String username, String reply) {
-        Comment comment = commentQueryRepository.getWithItem(commentId);
+        Comment comment = commentRepository.getWithItem(commentId);
 
         comment.addReply(username, reply);
     }
 
     public void delete(Long commentId, String username) {
-        Comment comment = commentQueryRepository.getWithUser(commentId);
+        Comment comment = commentRepository.getWithUser(commentId);
 
         comment.checkUser(username);
         commentRepository.delete(comment);

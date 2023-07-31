@@ -1,4 +1,4 @@
-package com.mutsa.mutsamarket.repository;
+package com.mutsa.mutsamarket.repository.comment;
 
 import com.mutsa.mutsamarket.entity.Comment;
 import com.mutsa.mutsamarket.exception.NotFoundCommentException;
@@ -14,7 +14,7 @@ import static com.mutsa.mutsamarket.entity.QUsers.users;
 
 @Repository
 @RequiredArgsConstructor
-public class CommentQueryRepository {
+public class CommentQueryRepositoryImpl implements CommentQueryRepository {
 
     private final JPAQueryFactory query;
 

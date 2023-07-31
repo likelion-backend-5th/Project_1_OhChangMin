@@ -46,4 +46,11 @@ public class Chat {
     public Long getId() {
         return id;
     }
+
+    public void verifyAccess(String username) {
+        //TODO 예외 변경
+        if (!seller.equals(username) &&  !buyer.equals(username)) {
+            throw new IllegalArgumentException("접근 할 수 없는 채팅방입니다.");
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package com.mutsa.mutsamarket.repository;
+package com.mutsa.mutsamarket.repository.item;
 
 import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.exception.NotFoundItemException;
@@ -13,10 +13,11 @@ import static com.mutsa.mutsamarket.entity.QUsers.*;
 
 @Repository
 @RequiredArgsConstructor
-public class ItemQueryRepository {
+public class ItemQueryRepositoryImpl implements ItemQueryRepository {
 
     private final JPAQueryFactory query;
 
+    @Override
     public Item getWithUser(Long id) {
         return Optional.ofNullable(
                         query.selectFrom(item)
