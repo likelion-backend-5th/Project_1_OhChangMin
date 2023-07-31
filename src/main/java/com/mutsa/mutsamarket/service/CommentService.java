@@ -5,7 +5,7 @@ import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.entity.Users;
 import com.mutsa.mutsamarket.repository.comment.CommentRepository;
 import com.mutsa.mutsamarket.repository.item.ItemRepository;
-import com.mutsa.mutsamarket.repository.UserRepository;
+import com.mutsa.mutsamarket.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

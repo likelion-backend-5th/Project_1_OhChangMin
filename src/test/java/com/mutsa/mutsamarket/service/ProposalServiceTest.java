@@ -7,7 +7,7 @@ import com.mutsa.mutsamarket.exception.NotAllowConfirmException;
 import com.mutsa.mutsamarket.exception.NotAllowResponseException;
 import com.mutsa.mutsamarket.repository.item.ItemRepository;
 import com.mutsa.mutsamarket.repository.proposal.ProposalRepository;
-import com.mutsa.mutsamarket.repository.UserRepository;
+import com.mutsa.mutsamarket.repository.user.UserRepository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

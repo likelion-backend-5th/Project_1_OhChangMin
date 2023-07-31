@@ -2,7 +2,7 @@ package com.mutsa.mutsamarket.service.security;
 
 import com.mutsa.mutsamarket.entity.Users;
 import com.mutsa.mutsamarket.exception.UsernameAlreadyExistsException;
-import com.mutsa.mutsamarket.repository.UserRepository;
+import com.mutsa.mutsamarket.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;

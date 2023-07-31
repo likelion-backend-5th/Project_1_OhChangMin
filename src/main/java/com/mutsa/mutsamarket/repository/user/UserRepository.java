@@ -1,4 +1,4 @@
-package com.mutsa.mutsamarket.repository;
+package com.mutsa.mutsamarket.repository.user;
 
 import com.mutsa.mutsamarket.entity.Users;
 import com.mutsa.mutsamarket.exception.NotFoundUserException;

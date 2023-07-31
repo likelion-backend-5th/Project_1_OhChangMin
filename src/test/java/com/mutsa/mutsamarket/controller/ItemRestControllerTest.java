@@ -5,7 +5,7 @@ import com.mutsa.mutsamarket.controller.request.ItemCreate;
 import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.entity.Users;
 import com.mutsa.mutsamarket.repository.item.ItemRepository;
-import com.mutsa.mutsamarket.repository.UserRepository;
+import com.mutsa.mutsamarket.repository.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

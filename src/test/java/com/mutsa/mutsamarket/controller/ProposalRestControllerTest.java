@@ -7,7 +7,7 @@ import com.mutsa.mutsamarket.entity.Proposal;
 import com.mutsa.mutsamarket.entity.Users;
 import com.mutsa.mutsamarket.repository.item.ItemRepository;
 import com.mutsa.mutsamarket.repository.proposal.ProposalRepository;
-import com.mutsa.mutsamarket.repository.UserRepository;
+import com.mutsa.mutsamarket.repository.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

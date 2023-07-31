@@ -1,6 +1,7 @@
 package com.mutsa.mutsamarket.repository.chat;
 
 import com.mutsa.mutsamarket.entity.Chat;
+import com.mutsa.mutsamarket.entity.QUsers;
 import com.mutsa.mutsamarket.exception.NotFoundChatException;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +19,15 @@ public class ChatQueryRepositoryImpl implements ChatQueryRepository {
     private final JPAQueryFactory query;
 
     public Chat getWithUsers(Long id) {
-        return Optional.ofNullable(query.selectFrom(chat)
-                        .where(chat.id.eq(id))
-                        .leftJoin(chat.seller, users).fetchJoin()
-                        .leftJoin(chat.buyer, users).fetchJoin()
-                        .fetchOne())
+        QUsers seller = new QUsers("seller");
+        QUsers buyer = new QUsers("buyer");
+
+        return Optional.ofNullable(
+                        query.selectFrom(chat)
+                                .leftJoin(chat.seller, seller).fetchJoin()
+                                .leftJoin(chat.buyer, buyer).fetchJoin()
+                                .where(chat.id.eq(id))
+                                .fetchOne())
                 .orElseThrow(NotFoundChatException::new);
     }
 }
