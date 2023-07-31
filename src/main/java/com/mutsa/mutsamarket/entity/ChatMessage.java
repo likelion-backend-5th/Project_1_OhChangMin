@@ -31,9 +31,4 @@ public class ChatMessage {
     public void setChat(Chat chat) {
         this.chat = chat;
     }
-
-    public void sendToChat(Chat chat) {
-        this.chat = chat;
-        chat.getChatMessages().add(this);
-    }
 }

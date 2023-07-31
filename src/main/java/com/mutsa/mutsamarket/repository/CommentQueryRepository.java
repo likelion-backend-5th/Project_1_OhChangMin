@@ -18,15 +18,6 @@ public class CommentQueryRepository {
 
     private final JPAQueryFactory query;
 
-    public Comment getWithItemUser(Long id) {
-          return Optional.ofNullable(query.selectFrom(comment)
-                        .where(comment.id.eq(id))
-                        .leftJoin(comment.item, item).fetchJoin()
-                        .leftJoin(comment.user, users).fetchJoin()
-                        .fetchOne())
-                .orElseThrow(NotFoundCommentException::new);
-    }
-
     public Comment getWithUser(Long id) {
           return Optional.ofNullable(query.selectFrom(comment)
                         .where(comment.id.eq(id))

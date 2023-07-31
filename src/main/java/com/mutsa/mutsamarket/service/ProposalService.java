@@ -19,7 +19,6 @@ import static com.mutsa.mutsamarket.entity.Proposal.*;
 @Transactional
 public class ProposalService {
 
-    private final ItemRepository itemRepository;
     private final ItemQueryRepository itemQueryRepository;
     private final UserRepository userRepository;
     private final ProposalRepository proposalRepository;

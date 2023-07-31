@@ -61,7 +61,6 @@ public class ChatService {
                 .content(content)
                 .build();
 
-        message.sendToChat(chat);
-        chatMessageRepository.save(message);
+        chat.addMessage(message);
     }
 }

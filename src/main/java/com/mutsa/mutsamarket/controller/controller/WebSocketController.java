@@ -5,7 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+
+import java.time.LocalDateTime;
 
 @Controller
 @RequiredArgsConstructor
@@ -15,17 +18,14 @@ public class WebSocketController {
     private final ChatService chatService;
 
     @MessageMapping("/chat/{chatId}")
-    public void sendMessage(@DestinationVariable Long chatId, ChatMessage message) {
-        chatService.addChatMessage(chatId, message.username, message.content);
-        messagingTemplate.convertAndSend("/queue/" + chatId, new ChatMessage(message.username, message.content));
+    public void sendMessage(@DestinationVariable Long chatId, ChatMessageRequest message, Authentication auth) {
+        chatService.addChatMessage(chatId, auth.getName(), message.content);
+        messagingTemplate.convertAndSend("/queue/" + chatId, new ChatMessageResponse(auth.getName(), message.content, LocalDateTime.now()));
     }
 
-//    @SubscribeMapping("/{chatId}")
-//    public Response subscribe(@DestinationVariable("chatId") Long chatId) {
-//        System.out.println("chatId = " + chatId);
-//        return new Response("구독 성공");
-//    }
+    private record ChatMessageRequest(String content) {
+    }
 
-    private record ChatMessage(String username, String content) {
+    private record ChatMessageResponse(String username, String content, LocalDateTime time) {
     }
 }

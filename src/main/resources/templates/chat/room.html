@@ -7,7 +7,10 @@
 <body onload="connect()">
     <div th:text="${chat.ownerName}"></div>
     <div th:text="${chat.buyerName}"></div>
-    <button onclick="send()"> 메세지 전송</button>
+    <form id="message-form">
+        <input type="text" id="message" placeholder="Write a message..."/>
+        <button type="submit">Send</button>
+    </form>
     <p id="response"></p>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="/js/stomp.js"></script>
@@ -15,7 +18,6 @@
         let stompClient = null;
         const pathname = window.location.pathname;
         const chatId = parseInt(pathname.split("/")[4]);
-        // const nickname = decodeURI(pathname.split("/")[3]);
 
         // function getRoomName() {
         //     fetch(`/chat/rooms/${roomId}/name`).then((response) => {
@@ -36,16 +38,10 @@
                     console.log('receive: ' + message);
                     const jsonMessage = JSON.parse(message.body);
                     console.log('receive: ' + jsonMessage);
-                    // if (Array.isArray(jsonMessage)) initialMessages(jsonMessage)
-                    // else receiveMessage(jsonMessage);
-                    receiveMessage(jsonMessage);
+                    if (Array.isArray(jsonMessage)) initialMessages(jsonMessage)
+                    else receiveMessage(jsonMessage);
                 });
-                // stompClient.send('/app/chat', {}, JSON.stringify({roomId: chatId}))
             });
-        }
-
-        function send() {
-            stompClient.send('/app/chat/' + chatId, {}, JSON.stringify({username: "userA", content: "halo"}))
         }
 
         function initialMessages(messageList) {
@@ -57,27 +53,20 @@
             const response = document.getElementById('response');
             const p = document.createElement('p');
             p.style.wordWrap = 'break-word';
-            // p.appendChild(document.createTextNode(messageOutput.sender + ": "
-            //     + messageOutput.message + " (" + messageOutput.time + ")"));
-            p.appendChild(document.createTextNode(messageOutput.username + ": " + messageOutput.content));
+            p.appendChild(document.createTextNode(messageOutput.username + ": " + messageOutput.content + " (" + messageOutput.time + ")"));
             response.appendChild(p);
         }
 
-        // document.getElementById("message-form").addEventListener("submit", (event) => {
-        //     event.preventDefault()
-        //     const messageInput = document.getElementById('message');
-        //     const message = messageInput.value
-        //     stompClient.send("/app/chat",
-        //         {
-        //             "Authorization": "Bearer JWT"
-        //         },
-        //         JSON.stringify({
-        //             'roomId': roomId,
-        //             'sender': nickname,
-        //             'message': message
-        //         }));
-        //     messageInput.value = null
-        // })
+        document.getElementById("message-form").addEventListener("submit", (event) => {
+            event.preventDefault()
+            const messageInput = document.getElementById('message');
+            const content = messageInput.value
+            stompClient.send("/app/chat/" + chatId, {},
+                JSON.stringify({
+                    'content': content
+                }));
+            messageInput.value = null
+        })
     </script>
 </body>
 </html>

@@ -31,8 +31,13 @@ public class Chat {
     @JoinColumn(name = "user_id")
     private Users buyer;
 
-    @OneToMany(mappedBy = "chat")
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
     private List<ChatMessage> chatMessages = new ArrayList<>();
+
+    public void addMessage(ChatMessage message) {
+        this.chatMessages.add(message);
+        message.setChat(this);
+    }
 
     public Long getId() {
         return id;
