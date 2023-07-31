@@ -19,10 +19,10 @@ public class ItemQueryRepository {
 
     public Item getWithUser(Long id) {
         return Optional.ofNullable(
-                query.selectFrom(item)
-                        .where(item.id.eq(id))
-                        .leftJoin(item.user, users).fetchJoin()
-                        .fetchOne())
+                        query.selectFrom(item)
+                                .where(item.id.eq(id))
+                                .leftJoin(item.user, users).fetchJoin()
+                                .fetchOne())
                 .orElseThrow(NotFoundItemException::new);
     }
 }

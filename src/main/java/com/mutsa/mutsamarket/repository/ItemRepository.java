@@ -16,5 +16,5 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     default Item getById(Long id) {
         return findById(id).orElseThrow(NotFoundItemException::new);
-    };
+    }
 }

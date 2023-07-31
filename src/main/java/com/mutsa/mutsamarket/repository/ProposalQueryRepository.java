@@ -19,7 +19,7 @@ public class ProposalQueryRepository {
     private final JPAQueryFactory query;
 
     public Proposal getWithItemUser(Long id) {
-          return Optional.ofNullable(query.selectFrom(proposal)
+        return Optional.ofNullable(query.selectFrom(proposal)
                         .where(proposal.id.eq(id))
                         .leftJoin(proposal.item, item).fetchJoin()
                         .leftJoin(proposal.user, users).fetchJoin()

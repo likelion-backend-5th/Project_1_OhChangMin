@@ -1,6 +1,5 @@
 package com.mutsa.mutsamarket.entity;
 
-import com.mutsa.mutsamarket.exception.PasswordMismatchException;
 import com.mutsa.mutsamarket.exception.UserMismatchedException;
 import jakarta.persistence.*;
 import lombok.*;

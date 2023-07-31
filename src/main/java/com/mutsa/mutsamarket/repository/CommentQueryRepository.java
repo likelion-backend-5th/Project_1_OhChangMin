@@ -19,7 +19,7 @@ public class CommentQueryRepository {
     private final JPAQueryFactory query;
 
     public Comment getWithUser(Long id) {
-          return Optional.ofNullable(query.selectFrom(comment)
+        return Optional.ofNullable(query.selectFrom(comment)
                         .where(comment.id.eq(id))
                         .leftJoin(comment.user, users).fetchJoin()
                         .fetchOne())

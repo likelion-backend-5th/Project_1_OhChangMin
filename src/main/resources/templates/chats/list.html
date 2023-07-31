@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>채팅 목록</title>
+</head>
+<body>
+  <table>
+    <thead>
+    <thead>
+    <tr>
+      <th>채팅</th>
+    </tr>
+    </thead>
+    </thead>
+    <tbody>
+    <tr th:each="chat : ${chats}">
+      <td><a href="list.html" th:href="@{/chats/{chatId}(chatId=${chat.id})}" th:text="${chat.id}">제목</a></td>
+    </tr>
+    </tbody>
+  </table>
+</body>
+</html>

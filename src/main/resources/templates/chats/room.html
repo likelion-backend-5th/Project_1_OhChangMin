@@ -5,19 +5,20 @@
     <title>채팅방</title>
 </head>
 <body onload="connect()">
-    <div th:text="${chat.ownerName}"></div>
-    <div th:text="${chat.buyerName}"></div>
+    <div th:each="message : ${messages}">
+        <p th:text="${message.username + ': ' + message.content + ' (' + message.time + ')'}"></p>
+    </div>
+    <p id="response"></p>
     <form id="message-form">
         <input type="text" id="message" placeholder="Write a message..."/>
         <button type="submit">Send</button>
     </form>
-    <p id="response"></p>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="/js/stomp.js"></script>
     <script type="text/javascript">
         let stompClient = null;
         const pathname = window.location.pathname;
-        const chatId = parseInt(pathname.split("/")[4]);
+        const chatId = parseInt(pathname.split("/")[2]);
 
         // function getRoomName() {
         //     fetch(`/chat/rooms/${roomId}/name`).then((response) => {
@@ -35,9 +36,7 @@
             stompClient.connect({}, function (frame) {
                 console.log('Connected: ' + frame);
                 stompClient.subscribe(`/queue/${chatId}`, function (message) {
-                    console.log('receive: ' + message);
                     const jsonMessage = JSON.parse(message.body);
-                    console.log('receive: ' + jsonMessage);
                     if (Array.isArray(jsonMessage)) initialMessages(jsonMessage)
                     else receiveMessage(jsonMessage);
                 });

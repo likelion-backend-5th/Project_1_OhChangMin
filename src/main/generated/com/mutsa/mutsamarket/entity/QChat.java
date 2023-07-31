@@ -30,6 +30,8 @@ public class QChat extends EntityPathBase<Chat> {
 
     public final QItem item;
 
+    public final QUsers seller;
+
     public QChat(String variable) {
         this(Chat.class, forVariable(variable), INITS);
     }
@@ -50,6 +52,7 @@ public class QChat extends EntityPathBase<Chat> {
         super(type, metadata, inits);
         this.buyer = inits.isInitialized("buyer") ? new QUsers(forProperty("buyer")) : null;
         this.item = inits.isInitialized("item") ? new QItem(forProperty("item"), inits.get("item")) : null;
+        this.seller = inits.isInitialized("seller") ? new QUsers(forProperty("seller")) : null;
     }
 
 }

@@ -21,8 +21,7 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 public class Proposal {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "proposal_id")
     private Long id;
 

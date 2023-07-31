@@ -28,7 +28,11 @@ public class Chat {
     private Item item;
 
     @ManyToOne(fetch = LAZY, optional = false)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "seller_id")
+    private Users seller;
+
+    @ManyToOne(fetch = LAZY, optional = false)
+    @JoinColumn(name = "buyer_id")
     private Users buyer;
 
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
