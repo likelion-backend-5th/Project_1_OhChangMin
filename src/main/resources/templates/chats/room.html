@@ -13,24 +13,13 @@
         <input type="text" id="message" placeholder="Write a message..."/>
         <button type="submit">Send</button>
     </form>
-    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="/js/stomp.js"></script>
     <script type="text/javascript">
         let stompClient = null;
         const pathname = window.location.pathname;
         const chatId = parseInt(pathname.split("/")[2]);
 
-        // function getRoomName() {
-        //     fetch(`/chat/rooms/${roomId}/name`).then((response) => {
-        //         response.json().then((responseBody) => {
-        //             console.log(responseBody);
-        //             document.getElementById('room-name').innerHTML = responseBody.roomName;
-        //         })
-        //     });
-        // }
-
         function connect() {
-            // getRoomName();
             const socket = new WebSocket('ws://localhost:8080/chatting');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function (frame) {
