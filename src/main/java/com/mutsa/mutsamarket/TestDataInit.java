@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import static com.mutsa.mutsamarket.entity.enumtype.ItemStatus.SALE;
 
-@Profile("dev")
+@Profile("web-dev")
 @Component
 @RequiredArgsConstructor
 public class TestDataInit {
