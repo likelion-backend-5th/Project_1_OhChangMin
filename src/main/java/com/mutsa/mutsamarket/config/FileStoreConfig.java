@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Profile;
 public class FileStoreConfig {
 
     @Bean
-    @Profile("dev")
+    @Profile({"dev", "web-dev"})
     public FileStore fileStore() {
         return new FileStoreImpl();
     }
