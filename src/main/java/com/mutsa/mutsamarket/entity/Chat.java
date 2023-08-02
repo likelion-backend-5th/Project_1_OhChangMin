@@ -37,7 +37,7 @@ public class Chat {
     private Users buyer;
 
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
-    private List<ChatMessage> chatMessages = new ArrayList<>();
+    private final List<ChatMessage> chatMessages = new ArrayList<>();
 
     public void addMessage(ChatMessage message) {
         this.chatMessages.add(message);
