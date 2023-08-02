@@ -1,5 +1,6 @@
 package com.mutsa.mutsamarket.entity;
 
+import com.mutsa.mutsamarket.exception.NotAllowAccessChatException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,14 +44,9 @@ public class Chat {
         message.setChat(this);
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public void verifyAccess(String username) {
-        //TODO 예외 변경
         if (!seller.equals(username) &&  !buyer.equals(username)) {
-            throw new IllegalArgumentException("접근 할 수 없는 채팅방입니다.");
+            throw new NotAllowAccessChatException();
         }
     }
 }

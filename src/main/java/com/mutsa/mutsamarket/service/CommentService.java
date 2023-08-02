@@ -22,7 +22,7 @@ public class CommentService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
-    
+
     public void addComment(Long itemId, String username, String content) {
         Item item = itemRepository.getById(itemId);
         Users user = userRepository.getByUsername(username);
