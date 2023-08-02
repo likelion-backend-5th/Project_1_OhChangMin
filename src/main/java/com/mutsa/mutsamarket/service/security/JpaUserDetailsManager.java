@@ -18,7 +18,7 @@ public class JpaUserDetailsManager implements UserDetailsManager {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        Users users = userRepository.getByUsername(username);
+        Users users = userRepository.getUserByUsername(username);
         return CustomUserDetails.fromEntity(users);
     }
 

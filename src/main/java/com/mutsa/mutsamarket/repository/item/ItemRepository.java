@@ -14,7 +14,7 @@ public interface ItemRepository extends JpaRepository<Item, Long>, ItemQueryRepo
     @Query("select i from Item i join fetch i.user")
     Page<Item> findAllWithUser(PageRequest pageRequest);
 
-    default Item getById(Long id) {
+    default Item getItemById(Long id) {
         return findById(id).orElseThrow(NotFoundItemException::new);
     }
 }

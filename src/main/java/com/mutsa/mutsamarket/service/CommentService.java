@@ -24,15 +24,15 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     public void addComment(Long itemId, String username, String content) {
-        Item item = itemRepository.getById(itemId);
-        Users user = userRepository.getByUsername(username);
+        Item item = itemRepository.getItemById(itemId);
+        Users user = userRepository.getUserByUsername(username);
 
         commentRepository.save(createComment(item, user, content));
     }
 
     @Transactional(readOnly = true)
     public Page<Comment> findComments(Long itemId, Integer page, Integer limit) {
-        Item item = itemRepository.getById(itemId);
+        Item item = itemRepository.getItemById(itemId);
 
         return commentRepository.findByItemWithUser(item, PageRequest.of(page - 1, limit));
     }

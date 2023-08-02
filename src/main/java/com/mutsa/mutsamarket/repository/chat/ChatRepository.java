@@ -4,7 +4,6 @@ import com.mutsa.mutsamarket.entity.Chat;
 import com.mutsa.mutsamarket.entity.Item;
 import com.mutsa.mutsamarket.entity.Users;
 import com.mutsa.mutsamarket.exception.NotFoundChatException;
-import com.mutsa.mutsamarket.exception.NotFoundItemException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +17,7 @@ public interface ChatRepository extends JpaRepository<Chat, Long>, ChatQueryRepo
 
     List<Chat> findBySellerOrBuyer(Users seller, Users buyer);
 
-    default Chat getById(Long id) {
+    default Chat getChatById(Long id) {
         return findById(id).orElseThrow(NotFoundChatException::new);
     }
 }

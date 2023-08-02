@@ -19,7 +19,7 @@ public class ItemService {
     private final UserRepository userRepository;
 
     public void register(Item item, String username) {
-        Users user = userRepository.getByUsername(username);
+        Users user = userRepository.getUserByUsername(username);
 
         item.setUser(user);
         itemRepository.save(item);

@@ -26,7 +26,7 @@ public class ChatService {
     @Transactional
     public Long createRoom(Long itemId, String username) {
         Item item = itemRepository.getWithUser(itemId);
-        Users buyer = userRepository.getByUsername(username);
+        Users buyer = userRepository.getUserByUsername(username);
 
         Optional<Chat> optionalChatRoom = chatRepository.findByItemAndBuyer(item, buyer);
         if (optionalChatRoom.isPresent()) {
@@ -50,7 +50,7 @@ public class ChatService {
 
     @Transactional
     public void addChatMessage(Long chatId, String username, String content) {
-        Chat chat = chatRepository.getById(chatId);
+        Chat chat = chatRepository.getChatById(chatId);
 
         ChatMessage message = ChatMessage.builder()
                 .username(username)
@@ -61,7 +61,7 @@ public class ChatService {
     }
 
     public List<Chat> findChats(String username) {
-        Users user = userRepository.getByUsername(username);
+        Users user = userRepository.getUserByUsername(username);
         return chatRepository.findBySellerOrBuyer(user, user);
     }
 }
