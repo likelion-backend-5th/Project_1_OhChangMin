@@ -40,9 +40,11 @@ h2 `2.1.214`
 
 [API 문서](https://documenter.getpostman.com/view/26447331/2s9XxsVG49)
 
+[postman_collection](src%2Fmain%2Fresources%2Fstatic%2Fdata%2F%EB%A9%8B%EC%82%AC%20%EB%A7%88%EC%BC%93.postman_collection.json)
+
 <br/>
 
 ### 실행 방법
 1. 해당 깃 레포지토리를 clone 합니다.
-2. gradle 빌드
+2. gradle 빌드 후 실행
 
